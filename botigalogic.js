@@ -2,25 +2,25 @@ const htmlBotiga = `
 
 <div class="bloc-imatges">
     <div class="columna-esquerra">
-        <a href="https://cadialimentacio.netlify.app/principal.html?cat=ver" class="enllac-imatge-fix"> 
-            <img src="https://altervector.github.io/cadinamics/images/PICATVer.webp" alt="Verdures" class="imatge-petita">
+        <a href="https://oleyaji.netlify.app/principal.html?Categoria=Begudes" class="enllac-imatge-fix"> 
+            <img src="https://altervector.github.io/oleyajidinamics/images/PICATBegudes.webp" alt="Begudes" class="imatge-petita">
             <span class="etiqueta-categoria">Verdures</span>
         </a>
-        <a href="https://cadialimentacio.netlify.app/principal.html?cat=pre" class="enllac-imatge-fix">
-            <img src="https://altervector.github.io/cadinamics/images/PICATPre.webp" alt="Croquetes" class="imatge-petita">
+        <a href="https://oleyaji.netlify.app/principal.html?Categoria=Postres" class="enllac-imatge-fix">
+            <img src="https://altervector.github.io/oleyajidinamics/images/PICATPostres.webp" alt="Postres" class="imatge-petita">
             <span class="etiqueta-categoria">Precuinats</span>
         </a>
     </div>
     <div class="imatge-dreta">
-        <a href="https://cadialimentacio.netlify.app/principal.html?cat=px" class="enllac-imatge-fix">
-            <img src="https://altervector.github.io/cadinamics/images/PICATPx.webp" alt="Peix i Marisc" class="imatge-gran">
+        <a href="https://oleyaji.netlify.app/principal.html?Categoria=Plats" class="enllac-imatge-fix">
+            <img src="https://altervector.github.io/oleyajidinamics/images/PICATPlats.webp" alt="Plats" class="imatge-gran">
             <span class="etiqueta-categoria">Peix i Marisc</span>
         </a>
     </div>
 </div>
 <div class="bloc-imatge-inferior">
-    <a href="https://cadialimentacio.netlify.app/principal.html?cat=alt" class="enllac-imatge-fix item-horizontal">
-        <img src="https://altervector.github.io/cadinamics/images/PICATAlt.webp" alt="Postres i Altres" class="imatge-petita">
+    <a href="https://oleyaji.netlify.app/principal.html?Categoria=alt" class="enllac-imatge-fix item-horizontal">
+        <img src="https://altervector.github.io/oleyajidinamics/images/PICATUbicacio.webp" alt="On sóm..." class="imatge-petita">
         <span class="etiqueta-categoria">Postres i Altres</span>
     </a>
 </div>

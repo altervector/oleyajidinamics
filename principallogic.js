@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!catClau) return;
 
     function fetchAirtable() {
-        const url = `https://cadialimentacio.netlify.app/.netlify/functions/get-articles?cat=${encodeURIComponent(catClau)}`;
+        const url = `https://oleyaji.netlify.app/.netlify/functions/get-articles?Categoria=${encodeURIComponent(catClau)}`;
 
         fetch(url)
         .then(response => {
@@ -59,13 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         let html = '';
-        const baseRuta = "https://altervector.github.io/cadinamics/images/";
+        const baseRuta = "https://altervector.github.io/oleyajidinamics/images/";
         
         uniques.forEach(item => {
             const imgPath = item.foto ? `${baseRuta}${item.foto}` : `${baseRuta}default.jpg`;
             html += `
                 <div class="bloc-galeria-item" 
-                    onclick="window.location.href='article.html?cat=${catClau}&sub=${encodeURIComponent(item.titol)}'"
+                    onclick="window.location.href='article.html?Categoria=${catClau}&sub=${encodeURIComponent(item.titol)}'"
                     style="cursor:pointer;">
                     <img src="${imgPath}" alt="${item.titol}" onerror="this.src='${baseRuta}Default.png'">
                     <div class="titol-item">${item.titol}</div>
