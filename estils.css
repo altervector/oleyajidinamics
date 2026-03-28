@@ -1,0 +1,507 @@
+/* ============================================================
+   1. RESET I BASES (El fonament de la casa)
+   ============================================================ */
+
+html {
+    box-sizing: border-box; /* Evita que els marges eixamplin les caixes */
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #ffffff !important; /* Forcem fons blanc sempre */
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    overflow-x: hidden; /* Evita el moviment lateral al mòbil */
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; /* Els enllaços no canvien de color sols */
+}
+
+/* ============================================================
+   2. CAPÇALERA PRINCIPAL (El contenidor Pare)
+   ============================================================ */
+
+.capcalera-principal {
+    max-width: 400px;  /* La teva mida de referència */
+    width: 97%;
+    margin: 5px auto;  /* Centrat a la pantalla */
+    position: relative; /* "Àncora" perquè el logo i el text sàpiguen on són */
+    height: 125px;      /* Alçada per encabir-ho tot */
+}
+
+/* ============================================================
+   3. LOGO (El fill esquerre)
+   ============================================================ */
+
+.contenidor-logo {
+    position: absolute; /* Es col·loca respecte a .capcalera-principal */
+    top: 0; 
+    left: 0;
+    width: 150px;
+}   
+
+.logo {
+    max-width: 150px;
+    user-select: none;    /* Evita que el client seleccioni la imatge blava */
+    pointer-events: none; /* Evita que el logo reaccioni a clics */
+}
+
+/* ============================================================
+   4. TEXT CAPÇALERA (El fill dret/baix)
+   ============================================================ */
+
+.text-capcalera {
+    width: 250px;
+    position: absolute;
+    top: 87px;    /* Distància des de dalt del pare */
+    left: 90px;   /* Distància des de l'esquerra del pare */
+} 
+
+.text-capcalera p {
+    font-size: 13px;
+    color: #111;
+    text-align: center;
+    margin: 0;
+}
+
+/* El span que hem creat per netejar l'style de l'HTML */
+.subtitol-capcalera {
+    display: block;
+    text-align: center;
+}
+
+/* ============================================================
+   5. SEPARADORS (Línia taronja)
+   ============================================================ */
+
+.separador-hr {
+    border: none;
+    border-top: 1px solid #FF7B00; /* Color taronja Cadí */
+    max-width: 400px;
+    width: 90%;
+    margin: 10px auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 6. BLOC DE LES 3 IMATGES (TORNA A SER EL PARE FLEX) */
+.bloc-imatges {
+    max-width: 400px;
+    width: 90%;
+    margin: 10px auto;
+    height: 200px; 
+    display: flex; 
+    gap: 6px; 
+   /* background-color: #f5f5f5; */
+      
+}
+
+/* 7. COLUMNA ESQUERRA (Contenidor de les 2 petites) */
+.columna-esquerra {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+    width: 40%;
+    gap: 6px; 
+     
+}
+
+/* 8. IMATGE GRAN A LA DRETA */
+.imatge-dreta {
+    width: 55%;
+    height: 98%; 
+    margin: 0px 7px;
+}
+
+/* 9. ENLLAÇOS ESTABILITZATS */
+.enllac-imatge-fix {
+    display: block; 
+    width: 100%;
+    height: 97px; 
+box-shadow: -1px 2px 4px rgba(0, 0, 0, 0.1);
+background-color: #f5f5f5;
+    padding: 3px;
+}
+
+/* El contenidor de la imatge gran ocupa el 100% de l'alçada del seu Pare */
+.imatge-dreta .enllac-imatge-fix {
+    height: 100%;
+     
+}
+
+/* 10. ESTIL DE LES IMATGES */
+.imatge-petita, .imatge-gran {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover; 
+    display: block;
+}
+
+/* 11. EFECTE VISUAL AL HOVER */
+.enllac-imatge-fix:hover img {
+    opacity: 0.85; 
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* 12. BLOC ENLLAÇOS ÚTILS (La teva següent tasca!) */
+.bloc-enllacos {
+    max-width: 400px;
+    width: 90%;
+    margin: 20px auto 10px auto; 
+    text-align: center; 
+     
+}
+
+.bloc-enllacos p {
+    margin: 5px 0;
+    display: inline-block; 
+    padding: 0 10px;
+}
+
+.bloc-enllacos a {
+    color: #0056b3; 
+    text-decoration: none; 
+    font-size: 14px;
+}
+
+.bloc-enllacos a:hover {
+    text-decoration: underline; 
+}
+
+/* Estil per les icones petites de les Apps */
+.icona-app {
+    width: 24px;            /* Mida de la icona (pots posar 20px o 30px segons gust) */
+    height: auto;           /* Manté la proporció */
+    vertical-align: middle; /* Alinear verticalment amb el text del costat */
+    margin-right: 8px;      /* Un petit espai de separació entre la icona i el text */
+    display: inline-block;  /* Assegura que es comporti bé dins la línia */
+}
+
+
+.elaboradors {
+    
+    max-width: 400px;
+    width: 90%;
+    text-align:center;
+    margin: 40px auto 10px auto;
+    user-select: none;         /* Evita selecció accidental */
+    pointer-events: none;      /* Desactiva clics sobre el logo */
+    /*border:1px solid red;*/
+    
+}
+
+
+/* 13. PEU DE PÀGINA BUIT */
+
+
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------- ESTILS PÀGINES INTERIORS (GALERIA I FITXA) ------------------------------------------------------ */
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
+
+/* 14. PÀGINES DE CATEGORIA (Galeria Estil Assolim) */
+.galeria-productes {
+    max-width: 400px;
+    width: 95%;
+     margin:  40px auto;
+    padding: 0px;
+}
+
+.galeria-productes h1 {
+    font-size: 1.5em;
+    color: #191970;
+    margin: 0px auto 0px auto;
+    text-align: center;
+}
+
+.descripcio-seccio {
+    font-size: 14px;
+    text-align: center;
+    Top:-10px;
+    margin-bottom: 0px;
+    color: #333;
+}
+
+/* 🔥 ESTILS DE LA GALERIA FLEXBOX 🔥 */
+.bloc-galeria-item {
+    display: block; /* Farem que cada bloc sigui un bloc separat (ocupant l'ample complet) */
+    width: 95%;
+   margin: 0 auto;
+    margin-bottom: 30px; /* Espai entre els diferents productes */
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
+/* 🔥 CANVIS PER A LA PROVA DEL GRIS 🔥 */
+    background-color: #f7f7f7; /* Color de fons gris clar */
+    padding: 0px; /* Afegim una mica d'espai al voltant del contingut */
+    border-radius: 4px; /* Un toc visual per suavitzar les cantonades */
+    border: 1px solid #eee; /* Línia molt suau per separar els blocs */
+}
+
+
+.bloc-galeria-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px; 
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+
+.titol-item {
+    font-size: 16px;
+    font-weight: bold;
+color: #0056b3;
+    margin: 5px 0 0 0;
+}
+
+.enllac-tornar {
+    margin-top: 20px;
+    text-align: center;
+}
+.enllac-tornar a {
+    color: #0056b3;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* 15. PÀGINES DE FITXA FINAL (PRODUCTE - Plantilla Lluís Congelats) */
+.fitxa-producte {
+    max-width: 400px;
+    width: 90%;
+    margin: 20px auto; 
+    padding: 0px;
+}
+
+.fitxa-producte h1 {
+    font-size: 1.5em;
+    color: #191970;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.imatge-fitxa-principal {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px auto;
+    border-radius: 4px;
+}
+
+.descripcio-curta {
+    font-size: 15px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    color: #444;
+}
+
+/* Estils per a la Taula d'Especificacions */
+.especificacions-bloc {
+    border: 1px solid #ccc;
+    padding: 7px;
+    margin-top: 25px;
+    border-radius: 4px;
+}
+
+.especificacions-bloc h2 {
+    font-size: 1.1em;
+    color: #191970;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 4px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    color: #555;
+    font-weight: bold;
+}
+
+.info-extra {
+    font-size: 13px;
+    color: #777;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.enllac-tornar-fitxa {
+    margin-top: 30px;
+    text-align: center;
+}
+.enllac-tornar-fitxa a {
+    color: #0056b3;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+
+/* --- CORRECCIÓ INDEX: TORNADA DE MENORCA --- */
+
+/* 1. Asegurem que els enllaços siguin el contenidor dels textos */
+.enllac-imatge-fix {
+    position: relative; /* Això és l'àncora pels textos */
+    display: block;
+    width: 100%;
+    box-shadow: -1px 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    padding: 3px;
+    box-sizing: border-box; /* Molt important per les mides! */
+}
+
+/* 2. Els textos flotants (Lletres blanques amb ombra, sense marc) */
+.etiqueta-categoria {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.9); /* Ombra perquè es llegeixi bé */
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* 3. Ajust del bloc inferior (Postres) */
+.bloc-imatge-inferior {
+    max-width: 400px;
+    width: 90%;
+    margin: 10px auto; /* Donem espai (10px) perquè no s'enganxi a dalt */
+    display: block;
+}
+
+/* Forcem que la caixa de Postres sigui igual que el conjunt de dalt */
+.item-horizontal {
+    height: 97px !important; 
+}
+
+.item-horizontal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+/* Esto crea el círculo giratorio */
+/* Spinner minimalista */
+/* Spinner debajo del H1 */
+/* Ahora el spinner funcionará en ambas páginas */
+
+/* --- SPINNER INTELIGENTE --- */
+
+/* --- ARQUITECTURA DEL SPINNER --- */
+/* --- CONFIGURACIÓN TÉCNICA DEL SPINNER --- */
+#titol-categoria.loading::after, 
+#contingut-fitxa h1.loading::after {
+    content: ""!important;
+    display: block!important;
+    width: 34px;
+    height: 34px;
+    margin: 20px auto 0;
+    border-radius: 50%;
+    
+    /* AQUÍ CAMBIAS LOS COLORES */
+    /*#4285f4 (Azul): Empieza en la parte superior.
+
+    #ea4335 (Rojo): Continúa el giro.
+
+    #fbbc05 (Amarillo): El tercer tramo.
+
+    #34a853 (Verde): El último tramo de color.
+
+    #4285f4 (Azul): Se repite al final para que el círculo cierre el degradado sin que se note un corte brusco al girar.
+
+Si quieres añadir el blanco junto al amarillo para suavizar el contraste, la secuencia sería: (#4285f4, #ea4335, #fbbc05, #ffffff, #34a853, #4285f4).*/
+    background: conic-gradient(#4285f4, #ea4335, #fbbc05,#ffffff, #34a853, #4285f4);
+    
+    /* Esto crea el efecto de "anillo" (grosor de 4px) */
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
+    mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
+    
+    animation: girar 1s linear infinite;
+    visibility: visible!important;
+}
+
+@keyframes girar {
+    to { transform: rotate(360deg); }
+}
+
+/* --- CONTROL DE CAPAS DE DATOS --- */
+.esperant-validacio {
+    visibility: hidden!important;
+    opacity: 0;
+}
+
+.revelat-final {
+    visibility: visible!important;
+    opacity: 1;
+    transition: opacity 0.4s ease-in;
+}
+
+/* Asegura que el H1 ignore el ocultamiento del contenedor padre */
+#titol-categoria, #contingut-fitxa h1 {
+    visibility: visible!important;
+    opacity: 1!important;
+}
+
+
+
+
+
+/* --- DECORACIÓ DE NADAL --- */
+/* --- DECORACIÓ DE NADAL --- */
+/* REN DE NADAL - VERSIÓ MÒBIL PRIORITÀRIA */
+/* DECORACIÓ HIVERN - POSICIÓ FIXA AL LÍMIT DELS 400px */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0%;
+    
+    /* EL CÀLCUL QUE DEMANES */
+    left: calc(50% + 200px); 
+    transform: translateX(-100%); /* Això mou el quadrat perquè el seu costat dret toqui la línia */
+
+    width: 300px;  /* Pots mantenir els 300px o el que vulguis */
+    height: 300px;
+    
+    background-image: url('..Icon/');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right top; /* Assegura que el dibuix s'enganxi a la dreta del quadrat */
+    
+    z-index: 9999;
+    pointer-events: none;
+}
