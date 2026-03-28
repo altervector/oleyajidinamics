@@ -19,9 +19,9 @@ const htmlBotiga = `
     </div>
 </div>
 <div class="bloc-imatge-inferior">
-    <a href="https://oleyaji.netlify.app/principal.html?Categoria=alt" class="enllac-imatge-fix item-horizontal">
-        <img src="https://altervector.github.io/oleyajidinamics/images/PICATUbicacio.webp" alt="On sóm..." class="imatge-petita">
-        <span class="etiqueta-categoria">Postres i Altres</span>
+    <a href="https://www.google.com/maps/search/?api=1&query=OLÉ+Y+AJÍ+COMIDA+MEDITERRANEA+Y+LATINA+Vilafranca" target="_blank" class="enllac-imatge-fix item-horizontal">
+        <img src="https://altervector.github.io/oleyajidinamics/images/PICATUbicacio.webp" alt="On som..." class="imatge-petita">
+        <span class="etiqueta-categoria">On som (Maps)</span>
     </a>
 </div>
 <p style="max-width:400px; width:90%; margin: 10px auto 10px auto; font-size: 14px; color:#555; text-align: center;">
