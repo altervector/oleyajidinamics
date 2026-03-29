@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const params = new URLSearchParams(window.location.search);
-    const catClau = params.get('cat'); 
+    const catClau = params.get('Categoria'); 
 
     if (!catClau) return;
 
