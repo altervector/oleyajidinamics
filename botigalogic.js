@@ -4,17 +4,17 @@ const htmlBotiga = `
     <div class="columna-esquerra">
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Begudes" class="enllac-imatge-fix"> 
             <img src="https://altervector.github.io/oleyajidinamics/images/PICATBegudes.webp" alt="Begudes" class="imatge-petita">
-            <span class="etiqueta-categoria">Verdures</span>
+            <span class="etiqueta-categoria">Begudes</span>
         </a>
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Postres" class="enllac-imatge-fix">
             <img src="https://altervector.github.io/oleyajidinamics/images/PICATPostres.webp" alt="Postres" class="imatge-petita">
-            <span class="etiqueta-categoria">Precuinats</span>
+            <span class="etiqueta-categoria">Postress</span>
         </a>
     </div>
     <div class="imatge-dreta">
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Plats" class="enllac-imatge-fix">
             <img src="https://altervector.github.io/oleyajidinamics/images/PICATPlats.webp" alt="Plats" class="imatge-gran">
-            <span class="etiqueta-categoria">Peix i Marisc</span>
+            <span class="etiqueta-categoria">Plats</span>
         </a>
     </div>
 </div>
