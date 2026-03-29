@@ -50,7 +50,7 @@ a {
 }   
 
 .logo {
-    max-width: 150px;
+    max-width: 120px;
     user-select: none;    /* Evita que el client seleccioni la imatge blava */
     pointer-events: none; /* Evita que el logo reaccioni a clics */
 }
@@ -63,7 +63,7 @@ a {
     width: 250px;
     position: absolute;
     top: 87px;    /* Distància des de dalt del pare */
-    left: 90px;   /* Distància des de l'esquerra del pare */
+    left: 120px;   /* Distància des de l'esquerra del pare */
 } 
 
 .text-capcalera p {
