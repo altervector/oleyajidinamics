@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="text-capcalera">
                 <p>
-                    <em>Distribució de productes congelats 
+                    <em>🇨🇴Donde Colombia y España se unen en sabor🇪🇸
                     <span class="subtitol-capcalera">per a hostaleria i col·lectius</span></em>
                 </p>
             </div>
