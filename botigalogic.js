@@ -13,7 +13,7 @@ const htmlBotiga = `
     </div>
     <div class="imatge-dreta">
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Plats" class="enllac-imatge-fix">
-            <img src="https://altervector.github.io/oleyajidinamics/images/PICATPlats.webp" alt="Plats" class="imatge-gran">
+            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc3.webp" alt="Plats" class="imatge-gran">
             <span class="etiqueta-categoria">Plats</span>
         </a>
     </div>
