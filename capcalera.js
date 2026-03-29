@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="text-capcalera">
                 <p>
-                    <em>🇨🇴Donde Colombia y España
-                    <span class="subtitol-capcalera"> se unen en sabor🇪🇸/span></em>
+                    <em>🇨🇴 Donde Colombia y España
+                    <span class="subtitol-capcalera"> se unen en sabor 🇪🇸</span></em>
                 </p>
             </div>
         </div>
