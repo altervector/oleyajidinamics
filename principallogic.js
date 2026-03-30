@@ -8,30 +8,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (titolHTML) titolHTML.innerText = catClau;
 
-    fetch(`/.netlify/functions/get-articles?Categoria=${encodeURIComponent(catClau)}`)
+    // --- CANVI AQUÍ: Truquem al Worker de Cloudflare ---
+    const workerURL = "https://oleyaji.altervector.workers.dev";
+    
+    fetch(`${workerURL}?Categoria=${encodeURIComponent(catClau)}`)
     .then(response => {
         if (!response.ok) throw new Error(response.status);
         return response.json();
     })
-    .then(data => {
-        const records = data.records || [];
+    .then(records => { // El Worker ja ens torna la llista directament
         let html = '';
         const baseRuta = "https://altervector.github.io/oleyajidinamics/images/";
+
+        // Si no hi ha plats, avisem
+        if (!records || records.length === 0) {
+            if (contenidor) contenidor.innerHTML = "<p>No s'han trobat articles en aquesta categoria.</p>";
+            return;
+        }
 
         records.forEach(r => {
             const f = r.fields;
             
-            // Si ve com a llista (Airtable a vegades ho fa) o com a text normal
             let foto = Array.isArray(f.Foto) ? f.Foto[0] : f.Foto;
             const imgPath = foto ? `${baseRuta}${foto}` : `${baseRuta}Default.png`;
 
             html += `
                 <div class="targeta-producte">
-                    <img src="${imgPath}" alt="${f.Nom}" onerror="this.src='${baseRuta}Default.png'">
+                    <img src="${imgPath}" alt="${f.Nom || 'Plat'}" onerror="this.src='${baseRuta}Default.png'">
                     <div class="detalls-producte">
-                        <h3>${f.Nom}</h3>
+                        <h3>${f.Nom || "Sense nom"}</h3>
                         <p>${f.Descripcio || ""}</p>
-                        <span class="preu">${f.Preu} €</span>
+                        <span class="preu">${f.Preu || "0"} €</span>
                     </div>
                 </div>`;
         });
@@ -39,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (contenidor) contenidor.innerHTML = html;
     })
     .catch(err => {
-        if (contenidor) contenidor.innerHTML = "<p>Error de càrrega.</p>";
+        console.error("Error detallat:", err);
+        if (contenidor) contenidor.innerHTML = "<p>Error de càrrega: " + err.message + "</p>";
     });
 });
