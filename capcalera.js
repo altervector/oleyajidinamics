@@ -1,5 +1,17 @@
 // Això canvia el títol de la pestanya de seguida
 document.title = "Olé y Ají - Restaurant i Tapes";
+// 1. Busquem si ja hi ha una icona a l'HTML
+let favicon = document.querySelector("link[rel*='icon']");
+
+// 2. Si no existeix, la creem de zero
+if (!favicon) {
+    favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    document.head.appendChild(favicon);
+}
+
+// 3. Li assignem la ruta de la teva imatge de GitHub
+favicon.href = 'https://altervector.github.io/oleyajidinamics/Icon/logo.jpg';
 
 // Això posa la descripció per al Google
 const metaDesc = document.querySelector('meta[name="description"]');
