@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const contenidor = document.getElementById("cosgaleria");
-    const titolHTML = document.getElementById("titol-categoria");
-
     const params = new URLSearchParams(window.location.search);
     const catClau = params.get('Categoria'); 
 
-    if (!catClau) return;
+    if (!catClau || !contenidor) return;
 
     function fetchAirtable() {
         const url = `https://oleyaji.netlify.app/.netlify/functions/get-articles?Categoria=${encodeURIComponent(catClau)}`;
@@ -14,24 +12,19 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data && data.records) {
-                processData(data.records);
+                renderitzaGaleria(data.records);
             }
         })
         .catch(err => console.error("Error:", err));
     }
 
-    function processData(records) {
-        if (!records || records.length === 0) return;
-        
-        // Posem el nom de la categoria al títol de la web
-        if (titolHTML) titolHTML.innerText = catClau;
-
+    function renderitzaGaleria(records) {
         let html = '';
         const baseRuta = "https://altervector.github.io/oleyajidinamics/images/";
         
         records.forEach(r => {
             const art = r.fields;
-            // Fem servir 'Foto' i 'Nom' que és el que tens a la taula
+            // Fem servir 'Foto' i 'Nom' que és el que tens a la taula Plats
             const imgPath = art.Foto ? `${baseRuta}${art.Foto}` : `${baseRuta}default.jpg`;
             
             html += `
@@ -43,7 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
         });
+        
         contenidor.innerHTML = html;
+        // Treiem estats de càrrega si n'hi hagués
+        contenidor.classList.remove('esperant-validacio');
+        contenidor.classList.add('revelat-final');
     }
 
     fetchAirtable();
