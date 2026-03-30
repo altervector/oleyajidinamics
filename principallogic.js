@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const categoria = params.get("Categoria");
 
     if (!categoria) {
-        elTitol.innerText = "Selecciona categoria";
+        elTitol.innerText = "Error: Falta categoria";
         return;
     }
 
@@ -16,30 +16,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const resp = await fetch(`/.netlify/functions/get-articles?Categoria=${categoria}`);
+        if (!resp.ok) throw new Error("Error en la resposta de la funció");
+        
         const dades = await resp.json();
 
-        // COMPROVACIÓ: Ens assegurem que tenim un array abans de fer el forEach
         if (!Array.isArray(dades) || dades.length === 0) {
-            elCos.innerHTML = "<p>No hi ha articles disponibles en aquesta categoria.</p>";
+            elCos.innerHTML = "<p>No hi ha articles disponibles.</p>";
             return;
         }
 
         let htmlFinal = "";
         dades.forEach(registre => {
             const f = registre.fields;
-            const imgUrl = f.Foto && f.Foto[0] ? f.Foto[0].url : 'https://via.placeholder.com/150';
+            
+            // RUTA IMATGE: Carpeta images del teu GitHub Pages
+            const imgUrl = f.Foto 
+                ? `https://altervector.github.io/oleyajidinamics/images/${f.Foto}`
+                : 'https://altervector.github.io/oleyajidinamics/images/placeholder.webp';
 
             htmlFinal += `
                 <div class="targeta-producte">
-                    <div class="imatge-contenidor">
-                        <img src="${imgUrl}" alt="${f.Nom}" class="img-producte">
-                    </div>
+                    <img src="${imgUrl}" alt="${f.Nom}" class="img-producte">
                     <div class="detalls-producte">
                         <h3>${f.Nom}</h3>
-                        <p class="descripcio-text">${f.Descripcio || ""}</p>
-                        <div class="peu-producte">
-                            <span class="preu-text">${f.Preu} €</span>
-                        </div>
+                        <p>${f.Descripcio || ""}</p>
+                        <span class="preu">${f.Preu} €</span>
                     </div>
                 </div>`;
         });
@@ -47,6 +48,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         elCos.innerHTML = htmlFinal;
 
     } catch (error) {
-        elCos.innerHTML = "<p>Error en la connexió amb el servidor.</p>";
+        elCos.innerHTML = `<p>Error de càrrega: ${error.message}</p>`;
     }
 });
