@@ -1,53 +1,71 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    const elTitol = document.getElementById("titol-categoria");
-    const elCos = document.getElementById("cosgaleria");
-
-    if (!elCos) return;
+document.addEventListener('DOMContentLoaded', function() {
+    const contenidor = document.getElementById("cosgaleria");
+    const titolHTML = document.getElementById("titol-categoria");
 
     const params = new URLSearchParams(window.location.search);
-    const categoria = params.get("Categoria");
+    // IMPORTANT: Mira si a la URL poses 'cat' o 'Categoria'
+    const catClau = params.get('Categoria') || params.get('cat'); 
 
-    if (!categoria) {
-        elTitol.innerText = "Error: Falta categoria";
+    if (!catClau) {
+        if (titolHTML) titolHTML.innerText = "Falta categoria";
         return;
     }
 
-    elTitol.innerText = categoria;
+    if (titolHTML) titolHTML.innerText = "Carregant " + catClau + "...";
 
-    try {
-        const resp = await fetch(`/.netlify/functions/get-articles?Categoria=${categoria}`);
-        if (!resp.ok) throw new Error("Error en la resposta de la funció");
-        
-        const dades = await resp.json();
+    function fetchAirtable() {
+        // Crida a la teva funció de Netlify del nou projecte
+        const url = `/.netlify/functions/get-articles?Categoria=${encodeURIComponent(catClau)}`;
 
-        if (!Array.isArray(dades) || dades.length === 0) {
-            elCos.innerHTML = "<p>No hi ha articles disponibles.</p>";
-            return;
-        }
-
-        let htmlFinal = "";
-        dades.forEach(registre => {
-            const f = registre.fields;
+        fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error("Error en la resposta");
+            return response.json();
+        })
+        .then(data => {
+            // Adaptació a l'estructura d'Airtable:
+            // Si la teva funció de Netlify ja envia data.records, fem servir 'data'
+            // Si envia el paquet sencer, fem servir 'data.records'
+            const records = Array.isArray(data) ? data : (data.records || []);
             
-            // RUTA IMATGE: Carpeta images del teu GitHub Pages
-            const imgUrl = f.Foto 
-                ? `https://altervector.github.io/oleyajidinamics/images/${f.Foto}`
-                : 'https://altervector.github.io/oleyajidinamics/images/placeholder.webp';
-
-            htmlFinal += `
-                <div class="targeta-producte">
-                    <img src="${imgUrl}" alt="${f.Nom}" class="img-producte">
-                    <div class="detalls-producte">
-                        <h3>${f.Nom}</h3>
-                        <p>${f.Descripcio || ""}</p>
-                        <span class="preu">${f.Preu} €</span>
-                    </div>
-                </div>`;
+            if (records.length > 0) {
+                renderizarArticles(records);
+            } else {
+                if (contenidor) contenidor.innerHTML = "<p>No hi ha articles.</p>";
+            }
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            if (titolHTML) titolHTML.innerText = "Error en carregar";
         });
-
-        elCos.innerHTML = htmlFinal;
-
-    } catch (error) {
-        elCos.innerHTML = `<p>Error de càrrega: ${error.message}</p>`;
     }
+
+    function renderizarArticles(records) {
+        let html = '';
+        const baseRuta = "https://altervector.github.io/oleyajidinamics/images/";
+        
+        records.forEach(r => {
+            const art = r.fields;
+            if (!art) return;
+
+            // Lògica de foto que ja et funciona a l'altra web:
+            let fotoNom = Array.isArray(art.Foto) ? art.Foto[0] : art.Foto;
+            const imgPath = fotoNom ? `${baseRuta}${fotoNom}` : `${baseRuta}Default.png`;
+
+            html += `
+                <div class="targeta-producte">
+                    <img src="${imgPath}" alt="${art.Nom || 'Plat'}" onerror="this.src='${baseRuta}Default.png'">
+                    <div class="detalls-producte">
+                        <h3>${art.Nom || "Sense nom"}</h3>
+                        <p class="descripcio-text">${art.Descripcio || ""}</p>
+                        <span class="preu-text">${art.Preu || "0"} €</span>
+                    </div>
+                </div>
+            `;
+        });
+        if (contenidor) contenidor.innerHTML = html;
+        if (titolHTML) titolHTML.innerText = catClau;
+    }
+
+    fetchAirtable();
 });
