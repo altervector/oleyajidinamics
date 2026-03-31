@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerHTML = `
         <div class="capcalera-principal">
             <div class="contenidor-logo">
-                <img src="https://altervector.github.io/oleyajidinamics/Icon/logotrans.jpg" alt="Logo Olé y Ají" class="logo">
+                <img src="https://altervector.github.io/oleyajidinamics/Icon/logotrans.png" alt="Logo Olé y Ají" class="logo">
             </div>
             <div class="text-capcalera">
                 <p>
