@@ -92,7 +92,26 @@ a {
 }
 
 
+/* --- MODE DIAGNÒSTIC: Borra això quan acabis --- */
 
+.capcalera-principal {
+    border: 2px solid red !important;
+}
+
+.contenidor-logo {
+    border: 1px solid blue !important;
+}
+
+.text-capcalera {
+    border: 1px solid green !important;
+}
+
+.separador-hr {
+    border: 2px solid orange !important;
+    background-color: rgba(255, 0, 0, 0.1); /* Un vermell suau per veure l'àrea */
+}
+
+/* ---------------------------------------------- */
 
 
 
