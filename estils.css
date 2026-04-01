@@ -198,6 +198,7 @@ a {
     height: 100%; 
     object-fit: cover; 
     display: block;
+    outline:1px solid green !important;
 }
 
 /* 6.9 EFECTE VISUAL AL HOVER */
