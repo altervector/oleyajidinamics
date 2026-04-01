@@ -95,15 +95,15 @@ a {
 /* --- MODE DIAGNÒSTIC: Borra això quan acabis --- */
 
 .capcalera-principal {
-    border: 2px solid red !important;
+    border: 2px solid green !important;
 }
 
 .contenidor-logo {
-    border: 1px solid red !important;
+    border: 1px solid green !important;
 }
 
 .text-capcalera {
-    border: 1px solid red !important;
+    border: 1px solid green !important;
 }
 
 .separador-hr {
@@ -227,7 +227,7 @@ background-color: #f5f5f5;
     margin: 40px auto 10px auto;
     user-select: none;         /* Evita selecció accidental */
     pointer-events: none;      /* Desactiva clics sobre el logo */
-    /*border:1px solid red;*/
+    /*border:1px solid green;*/
     
 }
 
