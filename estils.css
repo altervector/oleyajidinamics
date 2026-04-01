@@ -100,7 +100,7 @@ a {
 
 .contenidor-logo {
     border: 1px solid blue !important;
-}*/
+}
 
 .text-capcalera {
     border: 1px solid green !important;
@@ -108,7 +108,7 @@ a {
 
 .separador-hr {
     border: 2px solid orange !important;
-    background-color: rgba(255, 0, 0, 0.1); /* Un vermell suau per veure l'àrea */
+    background-color: rgba(255, 0, 0, 0.1);*/ /* Un vermell suau per veure l'àrea */
 }
 
 /* ---------------------------------------------- */
