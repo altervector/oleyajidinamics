@@ -95,7 +95,7 @@ a {
 /* --- MODE DIAGNÒSTIC: Borra això quan acabis --- */
 
 .capcalera-principal {
-    border: 2px solid green !important;
+    border: 0px solid green !important;
 }
 
 .contenidor-logo {
