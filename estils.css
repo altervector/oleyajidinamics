@@ -116,23 +116,23 @@ a {
                     display: flex; 
                     flex-direction: column; 
                     justify-content: space-between;
-                    width: 40%;
+                    width: 42%;
                     gap: 6px; 
                     outline:1px solid blue !important;
                 }                                                                                               
 
 /* 6.2 IMATGE GRAN A LA DRETA */
                 .imatge-dreta {
-                    width: 55%;
+                    width: 58%;
                     height: 100%; 
-                    margin: 0px 2px;
+                    margin: 0px 0px;
                     outline:1px solid green !important;
                 }
 
                 /* El contenidor de la imatge gran ocupa el 100% de l'alçada del seu Pare */
                 .imatge-dreta .enllac-imatge-fix {
                     height: 100%;
-                    outline:1px solid pink !important;
+                    outline:1px solid blue !important;
                 }
 
 /* 6.3 Ajust del bloc inferior (Postres) */
@@ -213,7 +213,7 @@ a {
     width: 90%;
     margin: 20px auto 10px auto; 
     text-align: center;
-    outline: 1px solid pink !important; 
+    outline: 0px solid pink !important; 
 }
 
 .bloc-enllacos p {
