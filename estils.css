@@ -118,7 +118,7 @@ a {
                     justify-content: space-between;
                     width: 42%;
                     gap: 6px; 
-                    outline:1px solid blue !important;
+                    outline:0px solid blue !important;
                 }                                                                                               
 
 /* 6.2 IMATGE GRAN A LA DRETA ------Contenidor...*/
@@ -132,7 +132,7 @@ a {
                 /* El contenidor de la imatge gran ocupa el 100% de l'alçada del seu Pare */
                 .imatge-dreta .enllac-imatge-fix {
                     height: 100%;
-                    outline:1px solid blue !important;
+                    outline:0px solid blue !important;
                 }
 
 /* 6.3 Ajust del bloc inferior (Postres) */
