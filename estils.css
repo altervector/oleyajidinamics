@@ -175,6 +175,16 @@ a {
     opacity: 0.85; 
     transition: opacity 0.2s ease-in-out;
 }
+                /* 2. Apliquem els 97px NOMÉS a les fotos de la columna esquerra */
+            .columna-esquerra .enllac-imatge-fix {
+                height: 97px;
+            }
+
+            /* 3. Apliquem el 100% NOMÉS a la foto de la dreta */
+            .imatge-dreta .enllac-imatge-fix {
+                height: 100%;
+            }
+
 /* 6.8 Els textos flotants (Lletres blanques amb ombra, sense marc) */
 .etiqueta-categoria {
     position: absolute;
