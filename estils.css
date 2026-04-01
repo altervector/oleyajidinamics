@@ -107,7 +107,7 @@ a {
                     height: 200px; 
                     display: flex; 
                     gap: 6px; 
-                    outline:1px solid red !important;
+                    outline:0px solid red !important;
                 /* background-color: #f5f5f5; */
                 }
 
@@ -121,7 +121,7 @@ a {
                     outline:1px solid blue !important;
                 }                                                                                               
 
-/* 6.2 IMATGE GRAN A LA DRETA */
+/* 6.2 IMATGE GRAN A LA DRETA ------Contenidor...*/
                 .imatge-dreta {
                     width: 58%;
                     height: 100%; 
