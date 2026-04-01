@@ -36,7 +36,7 @@ a {
     margin: 5px auto;  /* Centrat a la pantalla */
     position: relative; /* "Àncora" perquè el logo i el text sàpiguen on són */
     height: 125px;      /* Alçada per encabir-ho tot */
-    border:0px solid red !important;
+    outline:0px solid red !important;
 }
 
 /* ============================================================
@@ -48,7 +48,7 @@ a {
     top: 10px; 
     left: 0;
     width: 150px;
-    border:0px solid pink !important;
+    outline:0px solid pink !important;
 }
 
 .logo {
@@ -56,7 +56,7 @@ a {
     width: 99%;
     user-select: none;    /* Evita que el client seleccioni la imatge blava */
     pointer-events: none; /* Evita que el logo reaccioni a clics */
-    border:0px solid green !important;
+    outline:0px solid green !important;
 }
 
 /* ============================================================
@@ -68,7 +68,7 @@ a {
     position: absolute;
     top: 60px;    /* Distància des de dalt del pare */
     left: 150px;   /* Distància des de l'esquerra del pare */
-    border:0px solid pink !important;
+    outline:0px solid pink !important;
 } 
 
 .text-capcalera p {
@@ -76,7 +76,7 @@ a {
     color: #111;
     text-align: center;
     margin: 0;
-    border:0px solid blue !important;
+    outline:0px solid blue !important;
 }
 
 /* El span que hem creat per netejar l'style de l'HTML */
@@ -107,7 +107,7 @@ a {
                     height: 200px; 
                     display: flex; 
                     gap: 6px; 
-                    border:1px solid pink !important;
+                    outline:1px solid red !important;
                 /* background-color: #f5f5f5; */
                 }
 
@@ -118,7 +118,7 @@ a {
                     justify-content: space-between;
                     width: 40%;
                     gap: 6px; 
-                    border:1px solid pink !important;
+                    outline:1px solid blue !important;
                 }                                                                                               
 
 /* 6.2 IMATGE GRAN A LA DRETA */
@@ -126,13 +126,13 @@ a {
                     width: 55%;
                     height: 98%; 
                     margin: 0px 7px;
-                    border:1px solid pink !important;
+                    outline:1px solid green !important;
                 }
 
                 /* El contenidor de la imatge gran ocupa el 100% de l'alçada del seu Pare */
                 .imatge-dreta .enllac-imatge-fix {
                     height: 100%;
-                    border:1px solid pink !important;
+                    outline:1px solid pink !important;
                 }
 
 /* 6.3 Ajust del bloc inferior (Postres) */
@@ -141,7 +141,7 @@ a {
                     width: 90%;
                     margin: 10px auto; /* Donem espai (10px) perquè no s'enganxi a dalt */
                     display: block;
-                    border:1px solid pink !important;
+                    outline:1px solid brown !important;
                 }
 
                 /* Forcem que la caixa de Postres sigui igual que el conjunt de dalt */
@@ -212,7 +212,7 @@ a {
     width: 90%;
     margin: 20px auto 10px auto; 
     text-align: center;
-    border: 1px solid pink !important; 
+    outline: 1px solid pink !important; 
 }
 
 .bloc-enllacos p {
@@ -249,7 +249,7 @@ a {
     margin: 40px auto 10px auto;
     user-select: none;         /* Evita selecció accidental */
     pointer-events: none;      /* Desactiva clics sobre el logo */
-    border: 1px solid pink !important;    
+    outline: 1px solid pink !important;    
 }
 
 
