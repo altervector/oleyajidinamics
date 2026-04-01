@@ -35,7 +35,7 @@ a {
     width: 97%;
     margin: 5px auto;  /* Centrat a la pantalla */
     position: relative; /* "Àncora" perquè el logo i el text sàpiguen on són */
-    height: 125px;      /* Alçada per encabir-ho tot */
+    height: 110px;      /* Alçada per encabir-ho tot */
 }
 
 /* ============================================================
@@ -62,12 +62,12 @@ a {
 .text-capcalera {
     width: 200px;
     position: absolute;
-    top: 60px;    /* Distància des de dalt del pare */
-    left: 180px;   /* Distància des de l'esquerra del pare */
+    top: 50px;    /* Distància des de dalt del pare */
+    left: 170px;   /* Distància des de l'esquerra del pare */
 } 
 
 .text-capcalera p {
-    font-size: 13px;
+    font-size: 14px;
     color: #111;
     text-align: center;
     margin: 0;
