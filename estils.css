@@ -126,7 +126,7 @@ a {
                     width: 58%;
                     height: 100%; 
                     margin: 0px 0px;
-                    outline:0px solid green !important;
+                    outline:1px solid red !important;
                 }
 
 /* 6.3 Ajust del bloc inferior (Postres) */
@@ -156,7 +156,7 @@ a {
     height: 100%; 
     object-fit: cover; 
     display: block;
-    outline:1px solid green !important;
+    outline:1px solid orangered !important;
 }
 
 /* 6.6 Asegurem que els enllaços siguin el contenidor dels textos */
