@@ -99,11 +99,11 @@ a {
 }
 
 .contenidor-logo {
-    border: 1px solid blue !important;
+    border: 1px solid red !important;
 }
 
 .text-capcalera {
-    border: 1px solid green !important;
+    border: 1px solid red !important;
 }
 
 .separador-hr {
