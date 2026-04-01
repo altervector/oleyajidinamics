@@ -45,7 +45,7 @@ a {
 
 .contenidor-logo {
     position: absolute; /* Es col·loca respecte a .capcalera-principal */
-    top: 0; 
+    top: 20px; 
     left: 0;
     width: 150px;
     border:1px solid pink !important;
@@ -53,6 +53,7 @@ a {
 
 .logo {
     max-width: 150px;
+    width: 98%;
     user-select: none;    /* Evita que el client seleccioni la imatge blava */
     pointer-events: none; /* Evita que el logo reaccioni a clics */
     border:1px solid green !important;
@@ -66,7 +67,7 @@ a {
     width: 240px;
     position: absolute;
     top: 60px;    /* Distància des de dalt del pare */
-    left: 110px;   /* Distància des de l'esquerra del pare */
+    left: 150px;   /* Distància des de l'esquerra del pare */
     border:1px solid pink !important;
 } 
 
@@ -90,10 +91,10 @@ a {
 
 .separador-hr {
     border: none;
-    border-top: 1px solid #FF7B00; /* Color taronja Cadí */
+    border-top: 1px solid blue; /* Color taronja Cadí */
     max-width: 400px;
     width: 90%;
-    margin: 10px auto;
+    margin: 5px auto;
     border:1px solid pink !important;
 }
 
