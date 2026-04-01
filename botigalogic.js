@@ -1,3 +1,18 @@
+// FORÇAR RECARREGA DEL CSS (Cache Busting)
+(function() {
+    var links = document.getElementsByTagName("link");
+    for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        if (link.rel === "stylesheet" && link.href.includes("estils.css")) {
+            link.href = link.href.split('?')[0] + '?v=' + Date.now();
+        }
+    }
+})();
+
+
+
+
+
 const htmlBotiga = `
 <div class="bloc-imatges">
     <div class="columna-esquerra">
