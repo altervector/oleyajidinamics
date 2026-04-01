@@ -63,7 +63,7 @@ a {
     width: 200px;
     position: absolute;
     top: 50px;    /* Distància des de dalt del pare */
-    left: 160px;   /* Distància des de l'esquerra del pare */
+    left: 165px;   /* Distància des de l'esquerra del pare */
 } 
 
 .text-capcalera p {
@@ -85,7 +85,7 @@ a {
 
 .separador-hr {
     border: none;
-    border-top: 1px solid #FF7B00; /* Color taronja Cadí */
+    border-top: 1px solid #3541c5; /* Color taronja Cadí */
     max-width: 400px;
     width: 90%;
     margin: 10px auto;
@@ -95,7 +95,7 @@ a {
 /* --- MODE DIAGNÒSTIC: Borra això quan acabis --- */
 
 .capcalera-principal {
-    border: 0px solid green !important;
+    border: 0px solid blue !important;
 }
 
 .contenidor-logo {
