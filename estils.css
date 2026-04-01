@@ -35,7 +35,7 @@ a {
     width: 97%;
     margin: 5px auto;  /* Centrat a la pantalla */
     position: relative; /* "Àncora" perquè el logo i el text sàpiguen on són */
-    height: 110px;      /* Alçada per encabir-ho tot */
+    height: 115px;      /* Alçada per encabir-ho tot */
 }
 
 /* ============================================================
@@ -63,7 +63,7 @@ a {
     width: 200px;
     position: absolute;
     top: 50px;    /* Distància des de dalt del pare */
-    left: 170px;   /* Distància des de l'esquerra del pare */
+    left: 160px;   /* Distància des de l'esquerra del pare */
 } 
 
 .text-capcalera p {
