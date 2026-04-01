@@ -36,7 +36,7 @@ a {
     margin: 5px auto;  /* Centrat a la pantalla */
     position: relative; /* "Àncora" perquè el logo i el text sàpiguen on són */
     height: 125px;      /* Alçada per encabir-ho tot */
-    border:1px solid red !important;
+    border:0px solid red !important;
 }
 
 /* ============================================================
@@ -48,7 +48,7 @@ a {
     top: 10px; 
     left: 0;
     width: 150px;
-    border:1px solid pink !important;
+    border:0px solid pink !important;
 }
 
 .logo {
@@ -56,7 +56,7 @@ a {
     width: 99%;
     user-select: none;    /* Evita que el client seleccioni la imatge blava */
     pointer-events: none; /* Evita que el logo reaccioni a clics */
-    border:1px solid green !important;
+    border:0px solid green !important;
 }
 
 /* ============================================================
@@ -68,7 +68,7 @@ a {
     position: absolute;
     top: 60px;    /* Distància des de dalt del pare */
     left: 150px;   /* Distància des de l'esquerra del pare */
-    border:1px solid pink !important;
+    border:0px solid pink !important;
 } 
 
 .text-capcalera p {
@@ -76,7 +76,7 @@ a {
     color: #111;
     text-align: center;
     margin: 0;
-    border:1px solid blue !important;
+    border:0px solid blue !important;
 }
 
 /* El span que hem creat per netejar l'style de l'HTML */
@@ -95,7 +95,7 @@ a {
     max-width: 400px;
     width: 90%;
     margin: 5px auto;
-    border:1px solid pink !important;
+    border:0px solid pink !important;
 }
 
 
