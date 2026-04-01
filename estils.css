@@ -107,8 +107,8 @@ a {
 }
 
 .separador-hr {
-    border: 0px solid orange !important;
-    background-color: rgba(255, 0, 0, 0.1); /* Un vermell suau per veure l'àrea */
+    /*border: 0px solid orange !important;*/
+    /*background-color: rgba(255, 0, 0, 0.1); Un vermell suau per veure l'àrea */
 }
 
 /* ---------------------------------------------- */
