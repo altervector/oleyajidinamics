@@ -124,8 +124,8 @@ a {
 /* 6.2 IMATGE GRAN A LA DRETA */
                 .imatge-dreta {
                     width: 55%;
-                    height: 98%; 
-                    margin: 0px 7px;
+                    height: 100%; 
+                    margin: 0px 2px;
                     outline:1px solid green !important;
                 }
 
