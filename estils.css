@@ -45,7 +45,7 @@ a {
 
 .contenidor-logo {
     position: absolute; /* Es col·loca respecte a .capcalera-principal */
-    top: 20px; 
+    top: 10px; 
     left: 0;
     width: 150px;
     border:1px solid pink !important;
@@ -53,7 +53,7 @@ a {
 
 .logo {
     max-width: 150px;
-    width: 98%;
+    width: 99%;
     user-select: none;    /* Evita que el client seleccioni la imatge blava */
     pointer-events: none; /* Evita que el logo reaccioni a clics */
     border:1px solid green !important;
