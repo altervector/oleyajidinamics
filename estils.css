@@ -60,10 +60,10 @@ a {
    ============================================================ */
 
 .text-capcalera {
-    width: 250px;
+    width: 230px;
     position: absolute;
-    top: 87px;    /* Distància des de dalt del pare */
-    left: 120px;   /* Distància des de l'esquerra del pare */
+    top: 77px;    /* Distància des de dalt del pare */
+    left: 130px;   /* Distància des de l'esquerra del pare */
 } 
 
 .text-capcalera p {
