@@ -22,7 +22,7 @@ const htmlBotiga = `
         </a>
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Postres" class="enllac-imatge-fix">
             <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc2.webp" alt="Postres" class="imatge-petita">
-            <span class="etiqueta-categoria">Postress</span>
+            <span class="etiqueta-categoria">Postres</span>
         </a>
     </div>
     <div class="imatge-dreta">
