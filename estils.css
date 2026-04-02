@@ -179,7 +179,8 @@ a {
 }
                 /* 2. Apliquem els 97px NOMÉS a les fotos de la columna esquerra */
             .columna-esquerra .enllac-imatge-fix {
-                height: 97px;
+                flex: 1; /* Obliga a les dues fotos petites a repartir-se el 100% de l'altura */
+                height: auto; /* Deixa que el flex decideixi l'altura, no li donis píxels fixos */
             }
 
             /* 3. Apliquem el 100% NOMÉS a la foto de la dreta */
