@@ -39,7 +39,7 @@ const htmlBotiga = `
     </a>
 </div>
 <p style="max-width:400px; width:90%; margin: 10px auto 10px auto; font-size: 14px; color:#555; text-align: center;">
-    <em>Servicio a domicilio disponible <br><span style="display:block; text-align:center;"> Servei proper i professional</span></em>
+    <em>Servicio a domicilio disponible <br><span style="display:block; text-align:center;">...</span></em>
 </p>
 `;
 
