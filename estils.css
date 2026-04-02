@@ -164,7 +164,7 @@ a {
     position: relative; /* Això és l'àncora pels textos */
     display: block;
     width: 100%;
-    box-shadow: -1px 2px 8px rgba(0, 0, 0, 0.6);
+    box-shadow: -1px 2px 8px rgba(0, 0, 0, 0.8);
     /*background-color: #f5f5f5;*/
     padding: 0px;
     box-sizing: border-box; /* Molt important per les mides! */
