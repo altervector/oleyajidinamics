@@ -36,7 +36,7 @@ a {
     margin: 5px auto;  /* Centrat a la pantalla */
     position: relative; /* "Àncora" perquè el logo i el text sàpiguen on són */
     height: 125px;      /* Alçada per encabir-ho tot */
-    outline:0px solid red !important;
+    outline: 0px solid red !important;
 }
 
 /* ============================================================
@@ -48,7 +48,7 @@ a {
     top: 10px; 
     left: 0;
     width: 150px;
-    outline:0px solid pink !important;
+    outline: 0px solid pink !important;
 }
 
 .logo {
@@ -56,7 +56,7 @@ a {
     width: 99%;
     user-select: none;    /* Evita que el client seleccioni la imatge blava */
     pointer-events: none; /* Evita que el logo reaccioni a clics */
-    outline:0px solid green !important;
+    outline: 0px solid green !important;
 }
 
 /* ============================================================
@@ -68,7 +68,7 @@ a {
     position: absolute;
     top: 60px;    /* Distància des de dalt del pare */
     left: 150px;   /* Distància des de l'esquerra del pare */
-    outline:0px solid pink !important;
+    outline: 0px solid pink !important;
 } 
 
 .text-capcalera p {
@@ -76,7 +76,7 @@ a {
     color: #111;
     text-align: center;
     margin: 0;
-    outline:0px solid blue !important;
+    outline: 0px solid blue !important;
 }
 
 /* El span que hem creat per netejar l'style de l'HTML */
@@ -95,7 +95,7 @@ a {
     max-width: 400px;
     width: 90%;
     margin: 5px auto;
-    outline:0px solid pink !important;
+    outline: 0px solid pink !important;
 }
 
 
@@ -108,7 +108,7 @@ a {
                     display: flex; 
                     gap: 8px; 
                     align-items: stretch; /* <--- Afegeix això      Iguala derta i esquerra*/
-                    outline:0px solid red !important;
+                    outline: 0px solid red !important;
                 /* background-color: #f5f5f5; */
                 }
 
@@ -120,7 +120,7 @@ a {
                     width: 42%;
                     gap: 8px; 
                     height: 100%; /* Assegura que la columna ocupa tot el pare */
-                    outline:0px solid blue !important;
+                    outline: 0px solid blue !important;
                 }                                                                                               
 
 /* 6.2 IMATGE GRAN A LA DRETA ------Contenidor...*/
@@ -128,7 +128,7 @@ a {
                     width: 58%;
                     height: 100%; 
                     margin: 0px 0px;
-                    outline:0px solid red !important;
+                    outline: 0px solid red !important;
                 }
 
 /* 6.3 Ajust del bloc inferior (Postres) */
@@ -137,7 +137,7 @@ a {
                     width: 90%;
                     margin: 10px auto; /* Donem espai (10px) perquè no s'enganxi a dalt */
                     display: block;
-                    outline:0px solid brown !important;
+                    outline: 0px solid brown !important;
                 }
 
                 /* Forcem que la caixa de Postres sigui igual que el conjunt de dalt */
@@ -158,7 +158,7 @@ a {
     height: 100%; 
     object-fit: cover; 
     display: block;
-    outline:0px solid orangered !important;
+    outline: 0px solid orangered !important;
 }
 
 /* 6.6 Asegurem que els enllaços siguin el contenidor dels textos */
@@ -246,7 +246,7 @@ a {
     margin: 40px auto 10px auto;
     user-select: none;         /* Evita selecció accidental */
     pointer-events: none;      /* Desactiva clics sobre el logo */
-    outline: 1px solid pink !important;    
+    outline: 0px solid pink !important;    
 }
 
 
@@ -264,7 +264,7 @@ a {
     width: 95%;
      margin:  40px auto;
     padding: 0px;
-    outline: 1px solid red !important;
+    outline: 0px solid red !important;
 }
 
                 /*Titol categoria*/
@@ -273,7 +273,7 @@ a {
     color: #191970;
     margin: 0px auto 0px auto;
     text-align: center;
-    outline: 1px solid blue !important;
+    outline: 0px solid blue !important;
 }
 
 
@@ -294,7 +294,7 @@ a {
     padding: 3px; /* Afegim una mica d'espai al voltant del contingut */
     border-radius: 4px; /* Un toc visual per suavitzar les cantonades */
     border: 1px solid #eee; /* Línia molt suau per separar els blocs */
-    outline: 1px solid pink !important;
+    outline: 0px solid pink !important;
 }
 
             /*Imatge*/
@@ -306,7 +306,7 @@ a {
     object-fit: cover;  /* <--- IMPRESCINDIBLE: Retalla la foto perquè ompli l'espai sense aixafar-se */
     object-position: center; /* Centra el retall perquè es vegi la part del mig del plat */
     margin-bottom: 5px;
-    outline: 1px solid chartreuse !important;
+    outline: 0px solid chartreuse !important;
 }
             /*Text/Titol del Plat*/
 .titol-item {
@@ -314,24 +314,24 @@ a {
     font-weight: bold;
 color: #0056b3;
     margin: 5px 0 0 0;
-    outline: 1px solid black !important;
+    outline: 0px solid black !important;
 }
 /* 1. LA DESCRIPCIÓ DEL PLAT (El text llarg) */
 .detalls-producte p {
     font-size: 14px;
     color: #666;
     margin: 5px 10px; /* 5px a dalt/baix, 10px als costats */
-    outline: 1px solid orange !important; /* <--- LA VEURÀS TARONJA */
+    outline: 0px solid orange !important; /* <--- LA VEURÀS TARONJA */
 }
 
 /* 2. EL PREU (El número amb els €) */
 .preu {
     display: block; 
-    font-size: 18px;
+    font-size: 12px;
     font-weight: bold;
     color: #191970;
     margin-bottom: 15px; /* Espai per sota abans d'acabar el recuadre rosa */
-    outline: 1px solid cyan !important; /* <--- EL VEURÀS BLAU CEL */
+    outline: 0px solid cyan !important; /* <--- EL VEURÀS BLAU CEL */
 }
 
 
