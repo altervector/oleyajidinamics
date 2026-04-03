@@ -263,6 +263,8 @@ a {
     width: 95%;
      margin:  40px auto;
     padding: 0px;
+    outline: 1px solid pink !important;
+}
 }
 
 .galeria-productes h1 {
@@ -270,6 +272,7 @@ a {
     color: #191970;
     margin: 0px auto 0px auto;
     text-align: center;
+    outline: 1px solid blue !important;
 }
 
 .descripcio-seccio {
@@ -278,6 +281,7 @@ a {
     margin: top 0px;
     margin-bottom: 0px;
     color: #333;
+    outline: 1px solid green !important;
 }
 
 /* 🔥 ESTILS DE LA GALERIA FLEXBOX 🔥 */
