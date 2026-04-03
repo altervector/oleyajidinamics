@@ -284,13 +284,13 @@ a {
     display: block; /* Farem que cada bloc sigui un bloc separat (ocupant l'ample complet) */
     width: 95%;
    margin: 0 auto;
-    margin-bottom: 30px; /* Espai entre els diferents productes */
+    margin-bottom: 20px; /* Espai entre els diferents productes */
     text-decoration: none;
     color: #333;
     text-align: center;
         box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
 /* 🔥 CANVIS PER A LA PROVA DEL GRIS 🔥 */
-    background-color: #f7f7f7; /* Color de fons gris clar */
+    background-color: #f7f7f7c2; /* Color de fons gris clar */
     padding: 3px; /* Afegim una mica d'espai al voltant del contingut */
     border-radius: 4px; /* Un toc visual per suavitzar les cantonades */
     border: 1px solid #eee; /* Línia molt suau per separar els blocs */
@@ -300,7 +300,7 @@ a {
             /*Imatge*/
 .bloc-galeria-item img {
     width: 100%;
-    height: 40px;      /* <--- Forcem l'altura que vulguis (p.ex. 80px o 100px) */
+    height: 100%;      /* <--- Forcem l'altura que vulguis (p.ex. 80px o 100px) */
     display: block;
     border-radius: 4px 4px 0 0; /* Arrodonim només les cantonades de dalt */
     object-fit: cover;  /* <--- IMPRESCINDIBLE: Retalla la foto perquè ompli l'espai sense aixafar-se */
