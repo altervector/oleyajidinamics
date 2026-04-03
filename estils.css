@@ -315,6 +315,23 @@ color: #0056b3;
     margin: 5px 0 0 0;
     outline: 1px solid black !important;
 }
+/* 1. LA DESCRIPCIÓ DEL PLAT (El text llarg) */
+.detalls-producte p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 10px; /* 5px a dalt/baix, 10px als costats */
+    outline: 1px solid orange !important; /* <--- LA VEURÀS TARONJA */
+}
+
+/* 2. EL PREU (El número amb els €) */
+.preu {
+    display: block; 
+    font-size: 18px;
+    font-weight: bold;
+    color: #191970;
+    margin-bottom: 15px; /* Espai per sota abans d'acabar el recuadre rosa */
+    outline: 1px solid cyan !important; /* <--- EL VEURÀS BLAU CEL */
+}
 
 
 
