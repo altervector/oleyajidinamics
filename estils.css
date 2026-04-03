@@ -263,7 +263,7 @@ a {
     width: 95%;
      margin:  40px auto;
     padding: 0px;
-    outline: 1px solid pink !important;
+    outline: 1px solid red !important;
 }
 }
 
@@ -299,6 +299,7 @@ box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
     padding: 0px; /* Afegim una mica d'espai al voltant del contingut */
     border-radius: 4px; /* Un toc visual per suavitzar les cantonades */
     border: 1px solid #eee; /* Línia molt suau per separar els blocs */
+    outline: 1px solid pink !important;
 }
 
 
@@ -309,6 +310,7 @@ box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px; 
     object-fit: cover;
     margin-bottom: 5px;
+    outline: 1px solid chartreuse !important;
 }
 
 .titol-item {
@@ -316,6 +318,7 @@ box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
     font-weight: bold;
 color: #0056b3;
     margin: 5px 0 0 0;
+    outline: 1px solid black !important;
 }
 
 .enllac-tornar {
