@@ -300,10 +300,11 @@ a {
             /*Imatge*/
 .bloc-galeria-item img {
     width: 100%;
-    height: auto;
+    height: 40px;      /* <--- Forcem l'altura que vulguis (p.ex. 80px o 100px) */
     display: block;
-    border-radius: 4px; 
-    object-fit: cover;
+    border-radius: 4px 4px 0 0; /* Arrodonim només les cantonades de dalt */
+    object-fit: cover;  /* <--- IMPRESCINDIBLE: Retalla la foto perquè ompli l'espai sense aixafar-se */
+    object-position: center; /* Centra el retall perquè es vegi la part del mig del plat */
     margin-bottom: 5px;
     outline: 1px solid chartreuse !important;
 }
