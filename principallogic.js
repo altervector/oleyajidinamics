@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="bloc-galeria-item">
                     <img src="${imgPath}" alt="${f.Nom || 'Plat'}" onerror="this.src='${baseRuta}Default.png'">
                     <div class="detalls-producte">
-                        <h3>${f.Nom || "Sense nom"}</h3>
+                        //  <h3>${f.Nom || "Sense nom"}</h3>
+                        <h3 class="titol-item">${f.Nom || "Sense nom"}</h3>
                         <p>${f.Descripcio || ""}</p>
                         <span class="preu">${f.Preu || "0"} €</span>
                     </div>
