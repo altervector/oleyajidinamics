@@ -239,7 +239,7 @@ a {
 
 
 .elaboradors {
-    
+    display: none !important; /* Això la fa desaparèixer i NO ocupa espai */
     max-width: 400px;
     width: 90%;
     text-align:center;
