@@ -280,47 +280,57 @@ a {
 
 /* 🔥 ESTILS DE LA GALERIA FLEXBOX 🔥 */
                 /*Bloc item sencer*/
+
 .bloc-galeria-item {
-    display: block; /* Farem que cada bloc sigui un bloc separat (ocupant l'ample complet) */
+    display: flex;          /* <--- CANVI CLAU: Posa la foto i el text de costat */
+    align-items: center;    /* Centra el text verticalment respecte a la foto */
     width: 95%;
-   margin: 0 auto;
-    margin-bottom: 20px; /* Espai entre els diferents productes */
+    margin: 0 auto 15px auto; 
     text-decoration: none;
     color: #333;
-    text-align: center;
-        box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
-/* 🔥 CANVIS PER A LA PROVA DEL GRIS 🔥 */
-    background-color: #f7f7f7c2; /* Color de fons gris clar */
-    padding: 3px; /* Afegim una mica d'espai al voltant del contingut */
-    border-radius: 4px; /* Un toc visual per suavitzar les cantonades */
-    border: 1px solid #eee; /* Línia molt suau per separar els blocs */
-    outline: 0px solid pink !important;
+    
+    /* El teu disseny gris */
+    background-color: #f7f7f7c2;
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    border: 1px solid #eee;
+    
+    padding: 0;             /* Millor 0 aquí per controlar-ho des de dins */
+    overflow: hidden;       /* Perquè la foto no surti de les cantonades rodones */
+    outline: 1px solid pink !important;
 }
 
             /*Imatge*/
 .bloc-galeria-item img {
-    width: 100%;
-    height: 100%;      /* <--- Forcem l'altura que vulguis (p.ex. 80px o 100px) */
-    display: block;
-    border-radius: 4px 4px 0 0; /* Arrodonim només les cantonades de dalt */
-    object-fit: cover;  /* <--- IMPRESCINDIBLE: Retalla la foto perquè ompli l'espai sense aixafar-se */
-    object-position: center; /* Centra el retall perquè es vegi la part del mig del plat */
-    margin-bottom: 5px;
-    outline: 0px solid chartreuse !important;
+    width: 80px;            /* Mida de la miniatura */
+    height: 80px;
+    min-width: 80px;        /* Evita que s'enculli si el text és molt llarg */
+    object-fit: cover;
+    margin-bottom: 0;       /* Ja no necessitem espai a sota, sinó al costat */
+    outline: 1px solid chartreuse !important;
 }
+
             /*Text/Titol del Plat*/
+
+/* 1. LA DESCRIPCIÓ DEL PLAT (El text llarg) */
+.detalls-producte {
+    flex-grow: 1;           /* Fa que el text ocupi tota la dreta restant */
+    padding: 10px;
+    text-align: left;       /* Alineació a l'esquerra (estil llista) */
+}
+
 .titol-item {
     font-size: 16px;
     font-weight: bold;
-color: #0056b3;
+    color: #0056b3;
     margin: 5px 0 0 0;
     outline: 0px solid black !important;
 }
-/* 1. LA DESCRIPCIÓ DEL PLAT (El text llarg) */
+
 .detalls-producte p {
     font-size: 14px;
     color: #666;
-    margin: 5px 10px; /* 5px a dalt/baix, 10px als costats */
+    margin: 2px 0; /* 5px a dalt/baix, 10px als costats */
     outline: 0px solid orange !important; /* <--- LA VEURÀS TARONJA */
 }
 
@@ -330,7 +340,7 @@ color: #0056b3;
     font-size: 12px;
     font-weight: bold;
     color: #191970;
-    margin-bottom: 15px; /* Espai per sota abans d'acabar el recuadre rosa */
+   
     outline: 0px solid cyan !important; /* <--- EL VEURÀS BLAU CEL */
 }
 
