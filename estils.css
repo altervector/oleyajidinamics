@@ -297,7 +297,7 @@ a {
     
     padding: 0;             /* Millor 0 aquí per controlar-ho des de dins */
     overflow: hidden;       /* Perquè la foto no surti de les cantonades rodones */
-    outline: 1px solid pink !important;
+    outline: 0px solid pink !important;
 }
 
             /*Imatge*/
@@ -307,7 +307,7 @@ a {
     min-width: 80px;        /* Evita que s'enculli si el text és molt llarg */
     object-fit: cover;
     margin-bottom: 0;       /* Ja no necessitem espai a sota, sinó al costat */
-    outline: 1px solid chartreuse !important;
+    outline: 0px solid chartreuse !important;
 }
 
             /*Text/Titol del Plat*/
