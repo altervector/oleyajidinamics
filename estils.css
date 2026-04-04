@@ -405,18 +405,62 @@ a {
     object-fit: cover;
 }
 
+                        /* --- SPINNER --- *//* --- SPINNER INTELIGENTE --- */
 
+/* --- ARQUITECTURA DEL SPINNER --- */
+/* --- CONFIGURACIÓN TÉCNICA DEL SPINNER --- */
+#titol-categoria.loading::after, 
+#contingut-fitxa h1.loading::after {
+    content: ""!important;
+    display: block!important;
+    width: 34px;
+    height: 34px;
+    margin: 20px auto 0;
+    border-radius: 50%;
+    
+    /* AQUÍ CAMBIAS LOS COLORES */
+    /*#4285f4 (Azul): Empieza en la parte superior.
 
+    #ea4335 (Rojo): Continúa el giro.
 
+    #fbbc05 (Amarillo): El tercer tramo.
 
+    #34a853 (Verde): El último tramo de color.
 
+    #4285f4 (Azul): Se repite al final para que el círculo cierre el degradado sin que se note un corte brusco al girar.
 
+Si quieres añadir el blanco junto al amarillo para suavizar el contraste, la secuencia sería: (#4285f4, #ea4335, #fbbc05, #ffffff, #34a853, #4285f4).*/
+    background: conic-gradient(#4285f4, #ea4335, #fbbc05,#ffffff, #34a853, #4285f4);
+    
+    /* Esto crea el efecto de "anillo" (grosor de 4px) */
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
+    mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
+    
+    animation: girar 1s linear infinite;
+    visibility: visible!important;
+}
 
+@keyframes girar {
+    to { transform: rotate(360deg); }
+}
 
-                                    /* --- CORRECCIÓ INDEX: TORNADA DE MENORCA --- */
+/* --- CONTROL DE CAPAS DE DATOS --- */
+.esperant-validacio {
+    visibility: hidden!important;
+    opacity: 0;
+}
 
-c
+.revelat-final {
+    visibility: visible!important;
+    opacity: 1;
+    transition: opacity 0.4s ease-in;
+}
 
+/* Asegura que el H1 ignore el ocultamiento del contenedor padre */
+#titol-categoria, #contingut-fitxa h1 {
+    visibility: visible!important;
+    opacity: 1!important;
+}
 
 
 /* --- DECORACIÓ DE NADAL --- */
