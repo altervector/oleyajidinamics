@@ -24,10 +24,6 @@ window.tancarModal = function() {
     document.getElementById('modal-detall').style.display = 'none';
 }
 
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     const contenidor = document.getElementById("cosgaleria");
     const titolHTML = document.getElementById("titol-categoria");
@@ -36,9 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (!catClau) return;
 
-    if (titolHTML) titolHTML.innerText = catClau;
+    // --- SPINNER: El posem al principi ---
+    if (titolHTML) {
+        titolHTML.innerText = catClau;
+        titolHTML.classList.add('loading'); 
+    }
 
-    // --- CANVI AQUÍ: Truquem al Worker de Cloudflare ---
     const workerURL = "https://oleyaji.altervector.workers.dev";
     
     fetch(`${workerURL}?Categoria=${encodeURIComponent(catClau)}`)
@@ -46,19 +45,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!response.ok) throw new Error(response.status);
         return response.json();
     })
-    .then(records => { // El Worker ja ens torna la llista directament
+    .then(records => { 
         let html = '';
         const baseRuta = "https://altervector.github.io/oleyajidinamics/images/";
 
-        // Si no hi ha plats, avisem
         if (!records || records.length === 0) {
             if (contenidor) contenidor.innerHTML = "<p>No s'han trobat articles en aquesta categoria.</p>";
+            if (titolHTML) titolHTML.classList.remove('loading'); // SPINNER
             return;
         }
 
         records.forEach(r => {
             const f = r.fields;
-            
             let foto = Array.isArray(f.Foto) ? f.Foto[0] : f.Foto;
             const imgPath = foto ? `${baseRuta}${foto}` : `${baseRuta}Default.png`;
 
@@ -74,18 +72,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
   
         if (contenidor) contenidor.innerHTML = html;
+
+        // --- SPINNER: El treiem quan ja hem pintat tot ---
+        if (titolHTML) titolHTML.classList.remove('loading');
     })
     .catch(err => {
         console.error("Error detallat:", err);
         if (contenidor) contenidor.innerHTML = "<p>Error de càrrega: " + err.message + "</p>";
+        if (titolHTML) titolHTML.classList.remove('loading'); // SPINNER
     });
 });
-// AQUESTA FUNCIÓ VA FORA DEL DOMCONTENTLOADED, AL FINAL DE TOT DEL JS
+
+// FUNCIÓ MODAL (FORA)
 window.obrirModal = function(nom, foto, desc, preu) {
     const contingut = document.getElementById('contingut-dinamic-modal');
     const modal = document.getElementById('modal-detall');
-
-    if (!contingut || !modal) return; // Seguretat per si no troba els elements
+    if (!contingut || !modal) return;
 
     contingut.innerHTML = `
         <img src="${foto}" style="width:100%; height:250px; object-fit:cover;">
@@ -98,6 +100,5 @@ window.obrirModal = function(nom, foto, desc, preu) {
             </div>
         </div>
     `;
-
-    modal.style.display = 'flex'; // Fa que el modal passi de "none" (invisible) a "flex" (visible)
+    modal.style.display = 'flex';
 };
