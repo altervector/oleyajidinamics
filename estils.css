@@ -301,12 +301,28 @@ a {
 }
 
             /*Imatge*/
+/* --- LA MINIATURA DE LA LLISTA (LA FOTO DE L'ESQUERRA) --- */
+
 .bloc-galeria-item img {
-    width: 80px;            /* Mida de la miniatura */
-    height: 80px;
-    min-width: 80px;        /* Evita que s'enculli si el text és molt llarg */
-    object-fit: cover;
-    margin-bottom: 0;       /* Ja no necessitem espai a sota, sinó al costat */
+    width: 90px;             /* Mida fixa i quadrada */
+    height: 90px;
+    min-width: 90px;         /* Perquè no s'enculli si el text és molt llarg */
+    
+    /* El truc màgic per les proporcions */
+    object-fit: cover;       /* <--- IMPRESCINDIBLE: Retalla la foto perquè ompli el quadrat sense aixafar-se */
+    object-position: center; /* Centra el retall, el menjar no es talla pel mig */
+    
+    /* Arrodoniment i marges perfectes */
+    border-radius: 8px;      /* <--- AIXÒ ARRODONIX LES CANTONADES DE LA FOTO */
+    margin-right: 15px;      /* Espai entre la foto i el text de la dreta */
+    margin-bottom: 0;        /* Netejem marges vells */
+    
+    /* Perquè respiri una mica dins del bloc gris */
+    margin-top: 5px; 
+    margin-bottom: 5px;
+    margin-left: 5px;
+
+    /* Perquè els vegis clitxats (quan t'agradi, ho treus) */
     outline: 0px solid chartreuse !important;
 }
 
