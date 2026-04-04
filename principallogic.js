@@ -9,8 +9,20 @@
     }
 })();
 
+// Creem el div del modal dinàmicament al final del body
+const modalHTML = `
+    <div id="modal-detall">
+        <span class="tancar-modal" onclick="tancarModal()">&times;</span>
+        <div class="modal-contingut" id="contingut-dinamic-modal">
+            </div>
+    </div>
+`;
+document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-
+// Funció per tancar
+window.tancarModal = function() {
+    document.getElementById('modal-detall').style.display = 'none';
+}
 
 
 
@@ -51,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const imgPath = foto ? `${baseRuta}${foto}` : `${baseRuta}Default.png`;
 
             html += `
-                <div class="bloc-galeria-item">
+                <div class="bloc-galeria-item" onclick="obrirModal('${f.Nom || 'Plat'}', '${imgPath}', \`${f.Descripcio || ''}\`, '${f.Preu || '0'}')">
                     <img src="${imgPath}" alt="${f.Nom || 'Plat'}" onerror="this.src='${baseRuta}Default.png'">
                     <div class="detalls-producte">
                         <h3 class="titol-item">${f.Nom || "Sense nom"}</h3>
@@ -68,3 +80,24 @@ document.addEventListener('DOMContentLoaded', function() {
         if (contenidor) contenidor.innerHTML = "<p>Error de càrrega: " + err.message + "</p>";
     });
 });
+// AQUESTA FUNCIÓ VA FORA DEL DOMCONTENTLOADED, AL FINAL DE TOT DEL JS
+window.obrirModal = function(nom, foto, desc, preu) {
+    const contingut = document.getElementById('contingut-dinamic-modal');
+    const modal = document.getElementById('modal-detall');
+
+    if (!contingut || !modal) return; // Seguretat per si no troba els elements
+
+    contingut.innerHTML = `
+        <img src="${foto}" style="width:100%; height:250px; object-fit:cover;">
+        <div style="padding:20px; text-align:left;">
+            <h2 style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
+            <p style="color:#666; margin:15px 0; line-height:1.5; font-size:15px;">${desc}</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+                <span style="font-size:22px; font-weight:bold; color:#191970;">${preu} €</span>
+                <button onclick="tancarModal()" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">Tancar</button>
+            </div>
+        </div>
+    `;
+
+    modal.style.display = 'flex'; // Fa que el modal passi de "none" (invisible) a "flex" (visible)
+};
