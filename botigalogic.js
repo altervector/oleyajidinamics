@@ -57,7 +57,7 @@ document.getElementById('contingut-botiga').innerHTML = htmlBotiga;
 
 // 1. Definim la data de tall (any, mes -1, dia) 
 // Nota: El gener és 0, el febrer 1, el març 2, l'abril 3, el maig 4...
-const DATA_CADUCITAT = new Date(2026, 3, 1); // Això és l'8 de Maig de 2026
+const DATA_CADUCITAT = new Date(2026, 4, 1); // Això és l'8 de Maig de 2026
 
 // 2. La línia que em demanaves: Comparem "ARA" amb la "DATA DE TALL"
 const MOSTRAR_BLOQUEIG = new Date() > DATA_CADUCITAT;
