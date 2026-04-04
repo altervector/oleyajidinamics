@@ -435,7 +435,7 @@ body::after {
     width: 300px;  /* Pots mantenir els 300px o el que vulguis */
     height: 300px;
     
-    background-image: url('..Icon/');
+    background-image: url('..Icon/deco.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right top; /* Assegura que el dibuix s'enganxi a la dreta del quadrat */
