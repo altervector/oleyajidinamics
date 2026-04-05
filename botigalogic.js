@@ -20,21 +20,21 @@ const htmlBotiga = `
             <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc1.webp" alt="Begudes" class="imatge-petita">
             <span class="etiqueta-categoria">Begudes</span>
         </a>
-        <a href="https://oleyaji.netlify.app/principal.html?Categoria=Postres" class="enllac-imatge-fix">
-            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc2.webp" alt="Postres" class="imatge-petita">
-            <span class="etiqueta-categoria">Postres</span>
+        <a href="https://oleyaji.netlify.app/principal.html?Categoria=Tapas" class="enllac-imatge-fix">
+            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc2.webp" alt="Tapas" class="imatge-petita">
+            <span class="etiqueta-categoria">Tapas</span>
         </a>
     </div>
     <div class="imatge-dreta">
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Plats" class="enllac-imatge-fix">
-            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc3.webp" alt="Plats" class="imatge-petita">
+            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc3.webp" alt="Plats del dia" class="imatge-petita">
             <span class="etiqueta-categoria">Plats del dia</span>
         </a>
     </div>
 </div>
 
 <div class="bloc-imatge-inferior">
-        <a href="https://oleyaji.netlify.app/principal.html?Categoria=Postres" class="enllac-imatge-fix">
+        <a href="https://oleyaji.netlify.app/principal.html?Categoria=Postres" class="enllac-imatge-fix item-horizontal">
             <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc2.webp" alt="Postres" class="imatge-petita">
             <span class="etiqueta-categoria">Postres</span>
         </a>
