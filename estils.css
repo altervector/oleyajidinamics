@@ -143,6 +143,7 @@ a {
                 /* Forcem que la caixa de Postres sigui igual que el conjunt de dalt */
                 .item-horizontal {
                     height: 97px !important; 
+                    margin-bottom:10px;
                 }
 
                 .item-horizontal img {

@@ -35,11 +35,11 @@ const htmlBotiga = `
 
 <div class="bloc-imatge-inferior">
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Postres" class="enllac-imatge-fix item-horizontal">
-            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc2.webp" alt="Postres" class="imatge-petita">
+            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc4.webp" alt="Postres" class="imatge-petita">
             <span class="etiqueta-categoria">Postres</span>
         </a>
         <a href="https://www.google.com/maps/search/?api=1&query=OLÉ+Y+AJÍ+COMIDA+MEDITERRANEA+Y+LATINA+Vilafranca" target="_blank" class="enllac-imatge-fix item-horizontal">
-            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc4.webp" alt="On som..." class="imatge-petita">
+            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc5.webp" alt="On som..." class="imatge-petita">
             <span class="etiqueta-categoria">On som (Maps)</span>
         </a>
 </div>
