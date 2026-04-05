@@ -40,7 +40,7 @@ const htmlBotiga = `
         </a>
         <a href="https://www.google.com/maps/search/?api=1&query=OLÉ+Y+AJÍ+COMIDA+MEDITERRANEA+Y+LATINA+Vilafranca" target="_blank" class="enllac-imatge-fix item-horizontal">
             <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc5.webp" alt="On som..." class="imatge-petita">
-            <span class="etiqueta-categoria">On som (Maps)</span>
+            <span class="etiqueta-categoria"style="text-shadow: 2px 2px 4px rgba(0,0,0,1);">On som (Maps)</span>
         </a>
 </div>
 <p style="max-width:400px; width:90%; margin: 10px auto 10px auto; font-size: 14px; color:#555; text-align: center;">
