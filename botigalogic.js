@@ -18,7 +18,7 @@ const htmlBotiga = `
     <div class="columna-esquerra">
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Begudes" class="enllac-imatge-fix"> 
             <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc1.webp" alt="Begudes" class="imatge-petita">
-            <span class="etiqueta-categoria">Begudes</span>
+            <span class="etiqueta-categoria">Bebidas</span>
         </a>
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Tapas" class="enllac-imatge-fix">
             <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc2.webp" alt="Tapas" class="imatge-petita">
@@ -27,8 +27,8 @@ const htmlBotiga = `
     </div>
     <div class="imatge-dreta">
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Plats" class="enllac-imatge-fix">
-            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc3.webp" alt="Plats del dia" class="imatge-petita">
-            <span class="etiqueta-categoria">Plats del dia</span>
+            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc3.webp" alt="Platos de la Casa" class="imatge-petita">
+            <span class="etiqueta-categoria">Platos de la Casa</span>
         </a>
     </div>
 </div>
@@ -39,8 +39,8 @@ const htmlBotiga = `
             <span class="etiqueta-categoria">Postres</span>
         </a>
         <a href="https://www.google.com/maps/search/?api=1&query=OLÉ+Y+AJÍ+COMIDA+MEDITERRANEA+Y+LATINA+Vilafranca" target="_blank" class="enllac-imatge-fix item-horizontal">
-            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc5.webp" alt="On som..." class="imatge-petita">
-            <span class="etiqueta-categoria"style="text-shadow: 2px 2px 4px rgba(0,0,0,1);">On som (Maps)</span>
+            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc5.webp" alt="Donde estamos..." class="imatge-petita">
+            <span class="etiqueta-categoria"style="text-shadow: 2px 2px 4px rgba(0,0,0,1);">Donde estamos (Maps)</span>
         </a>
 </div>
 <p style="max-width:400px; width:90%; margin: 10px auto 10px auto; font-size: 14px; color:#555; text-align: center;">
