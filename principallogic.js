@@ -77,37 +77,27 @@ document.addEventListener('DOMContentLoaded', function() {
 // 4. FUNCIÓ MODAL (EL TEU NOU MODAL)
 window.obrirModal = function(idAirtable, nom, foto, desc, preu, is_visible) {
     const contingut = document.getElementById('contingut-dinamic-modal');
-    const modal = document.getElementById('modal-detall');
-    if (!contingut || !modal) return;
-
+    // ... (la teva lògica d'obertura)
+    
     contingut.innerHTML = `
-        <img id="foto-edit-trigger" src="${foto}" style="width:100%; height:250px; object-fit:cover; cursor:pointer;">
-        
-        <div style="padding:20px; text-align:left;">
-            <h2 id="nom-edit" data-id="${idAirtable}" style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
-            <p id="desc-edit" style="color:#666; margin:15px 0; line-height:1.5; font-size:15px;">${desc}</p>
+        <img id="foto-modal-img" src="${foto}" style="width:100%; height:250px; object-fit:cover;">
+        <div style="padding:20px;">
+            <h2 id="nom-edit" data-id="${idAirtable}">${nom}</h2>
+            <p id="desc-edit">${desc}</p>
+            <span><span id="preu-edit">${preu}</span> €</span>
             
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
-                <span style="font-size:22px; font-weight:bold; color:#191970;"><span id="preu-edit">${preu}</span> €</span>
-                
-                <div style="text-align:right;">
-                    <div id="admin-controls" style="display:none; margin-bottom:10px;">
-                        <label style="font-size:12px; color:#d35400; font-weight:bold;">
-                            <input type="checkbox" id="visible-edit" ${is_visible ? 'checked' : ''}> VISIBLE
-                        </label>
-                    </div>
-                    <button onclick="tancarModal()" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">Tancar</button>
-                </div>
+            <div id="admin-extra" style="display:none; margin-top:15px; border-top:1px solid #ccc; padding-top:10px;">
+                <label><input type="checkbox" id="visible-edit" ${is_visible ? 'checked' : ''}> Visible</label>
+                <input type="text" id="foto-url-edit" value="${foto}" style="width:100%; margin-top:5px;">
+                <button id="btn-guardar-admin" style="width:100%; margin-top:10px; background:orange;">GUARDAR</button>
             </div>
-
-            <button id="btn-guardar-admin" style="display:none; width:100%; margin-top:20px; padding:12px; background:#d35400; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">
-                GUARDAR CANVIS EN AIRTABLE
-            </button>
+            
+            <button onclick="tancarModal()">Tancar</button>
         </div>
     `;
-    modal.style.display = 'flex';
-
-    if (socAdmin) activarModeEdicio();
+    
+    // Si venim de ME (Mode Edició), els fem visibles
+    if (window.modeEdicio) activarInterficieAdmin();
 };
 
 // 5. DETECTORS I MODE ADMIN

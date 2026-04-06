@@ -57,6 +57,52 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
+
+        // A botigalogic.js (o on tinguis el logo)
+const logo = document.querySelector('.logo');
+let timerLogo;
+
+if (logo) {
+    // Funció que s'executa quan detecta la pressió llarga
+    const login = () => {
+        timerLogo = setTimeout(() => {
+            if (prompt("Clau:") === "1234") {
+                sessionStorage.setItem('adminMode', 'true');
+                location.reload(); 
+            }
+        }, 4000);
+    };
+
+    // Atura el comptador si deixem de prémer
+    const stop = () => clearTimeout(timerLogo);
+
+    // ORDINADOR
+    logo.addEventListener('mousedown', login);
+    logo.addEventListener('mouseup', stop);
+
+    // MÒBIL
+    logo.addEventListener('touchstart', login);
+    logo.addEventListener('touchend', stop);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Injectem tot el bloc al "forat" de l'HTML
 document.getElementById('contingut-botiga').innerHTML = htmlBotiga;
 
