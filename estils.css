@@ -55,7 +55,7 @@ a {
     max-width: 150px;
     width: 99%;
     user-select: none;    /* Evita que el client seleccioni la imatge blava */
-    pointer-events: none; /* Evita que el logo reaccioni a clics */
+    pointer-events: auto; /* Evita que el logo reaccioni a clics */
     outline: 0px solid green !important;
 }
 
