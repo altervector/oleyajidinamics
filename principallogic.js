@@ -1,4 +1,4 @@
-// FORÇAR RECARREGA DEL CSS (Cache Busting)
+// 1. FORÇAR RECARREGA DEL CSS
 (function() {
     var links = document.getElementsByTagName("link");
     for (var i = 0; i < links.length; i++) {
@@ -9,21 +9,21 @@
     }
 })();
 
-// Creem el div del modal dinàmicament al final del body
+// 2. VARIABLES D'ESTAT I MODAL
+let socAdmin = false;
 const modalHTML = `
     <div id="modal-detall">
         <span class="tancar-modal" onclick="tancarModal()">&times;</span>
-        <div class="modal-contingut" id="contingut-dinamic-modal">
-            </div>
+        <div class="modal-contingut" id="contingut-dinamic-modal"></div>
     </div>
 `;
 document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-// Funció per tancar
 window.tancarModal = function() {
     document.getElementById('modal-detall').style.display = 'none';
 }
 
+// 3. CÀRREGA DE DADES (EL BUCLE)
 document.addEventListener('DOMContentLoaded', function() {
     const contenidor = document.getElementById("cosgaleria");
     const titolHTML = document.getElementById("titol-categoria");
@@ -31,8 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const catClau = params.get('Categoria'); 
 
     if (!catClau) return;
-
-    // --- SPINNER: El posem al principi ---
     if (titolHTML) {
         titolHTML.innerText = catClau;
         titolHTML.classList.add('loading'); 
@@ -41,27 +39,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const workerURL = "https://oleyaji.altervector.workers.dev";
     
     fetch(`${workerURL}?Categoria=${encodeURIComponent(catClau)}`)
-    .then(response => {
-        if (!response.ok) throw new Error(response.status);
-        return response.json();
-    })
+    .then(response => response.json())
     .then(records => { 
         let html = '';
         const baseRuta = "https://altervector.github.io/oleyajidinamics/images/";
-
-        if (!records || records.length === 0) {
-            if (contenidor) contenidor.innerHTML = "<p>No s'han trobat articles en aquesta categoria.</p>";
-            if (titolHTML) titolHTML.classList.remove('loading'); // SPINNER
-            return;
-        }
 
         records.forEach(r => {
             const f = r.fields;
             let foto = Array.isArray(f.Foto) ? f.Foto[0] : f.Foto;
             const imgPath = foto ? `${baseRuta}${foto}` : `${baseRuta}Default.png`;
+            
+            // LÒGICA DE VISIBILITAT: Si no és visible i no som admin, no el pintem
+            const esVisible = f.Visible === true;
+            if (!esVisible && !socAdmin) return; 
+
+            const classeExtra = esVisible ? '' : 'item-ocult';
 
             html += `
-                <div class="bloc-galeria-item" onclick="obrirModal('${r.id}','${f.Nom || 'Plat'}', '${imgPath}', \`${f.Descripcio || ''}\`, '${f.Preu || '0'}')">
+                <div class="bloc-galeria-item ${classeExtra}" onclick="obrirModal('${r.id}','${f.Nom || 'Plat'}', '${imgPath}', \`${f.Descripcio || ''}\`, '${f.Preu || '0'}', ${esVisible})">
                     <img src="${imgPath}" alt="${f.Nom || 'Plat'}" onerror="this.src='${baseRuta}Default.png'">
                     <div class="detalls-producte">
                         <h3 class="titol-item">${f.Nom || "Sense nom"}</h3>
@@ -72,25 +67,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
   
         if (contenidor) contenidor.innerHTML = html;
-
-        // --- SPINNER: El treiem quan ja hem pintat tot ---
         if (titolHTML) titolHTML.classList.remove('loading');
-    })
-    .catch(err => {
-        console.error("Error detallat:", err);
-        if (contenidor) contenidor.innerHTML = "<p>Error de càrrega: " + err.message + "</p>";
-        if (titolHTML) titolHTML.classList.remove('loading'); // SPINNER
     });
+
+    // Activem el detector del Logo per entrar en mode Admin
+    iniciarDetectorLogo();
 });
 
-// FUNCIÓ MODAL (FORA)
-window.obrirModal = function(idAirtable, nom, foto, desc, preu) {
+// 4. FUNCIÓ MODAL (EL TEU NOU MODAL)
+window.obrirModal = function(idAirtable, nom, foto, desc, preu, is_visible) {
     const contingut = document.getElementById('contingut-dinamic-modal');
     const modal = document.getElementById('modal-detall');
     if (!contingut || !modal) return;
 
     contingut.innerHTML = `
-        <img id="foto-edit" src="${foto}" style="width:100%; height:250px; object-fit:cover;">
+        <img id="foto-edit-trigger" src="${foto}" style="width:100%; height:250px; object-fit:cover; cursor:pointer;">
         
         <div style="padding:20px; text-align:left;">
             <h2 id="nom-edit" data-id="${idAirtable}" style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
@@ -98,114 +89,91 @@ window.obrirModal = function(idAirtable, nom, foto, desc, preu) {
             
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
                 <span style="font-size:22px; font-weight:bold; color:#191970;"><span id="preu-edit">${preu}</span> €</span>
-                <button onclick="tancarModal()" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">Tancar</button>
+                
+                <div style="text-align:right;">
+                    <div id="admin-controls" style="display:none; margin-bottom:10px;">
+                        <label style="font-size:12px; color:#d35400; font-weight:bold;">
+                            <input type="checkbox" id="visible-edit" ${is_visible ? 'checked' : ''}> VISIBLE
+                        </label>
+                    </div>
+                    <button onclick="tancarModal()" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">Tancar</button>
+                </div>
             </div>
 
-            <button id="btn-guardar-admin" style="display:none; width:100%; margin-top:20px; padding:10px; background:green; color:white; border:none; border-radius:5px;">
-                CONFIRMAR CANVIS
+            <button id="btn-guardar-admin" style="display:none; width:100%; margin-top:20px; padding:12px; background:#d35400; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">
+                GUARDAR CANVIS EN AIRTABLE
             </button>
         </div>
     `;
     modal.style.display = 'flex';
 
-   
-   
-   
-    // Iniciem el detector de 3 segons sobre la foto que acabem de crear
-    iniciarDetectorAdmin();
+    if (socAdmin) activarModeEdicio();
 };
-function iniciarDetectorAdmin() {
-    const foto = document.getElementById('foto-edit');
+
+// 5. DETECTORS I MODE ADMIN
+function iniciarDetectorLogo() {
+    const logo = document.querySelector('.logo img') || document.querySelector('.logo'); // Busca el teu logo
+    if (!logo) return;
     let timer;
 
-    const start = () => {
+    logo.addEventListener('mousedown', () => {
         timer = setTimeout(() => {
-            if (confirm("Vols activar el mode edició?")) {
-                const pass = prompt("Contrasenya:");
-                if (pass === "1234") activarModeEdicio();
+            const pass = prompt("Contrasenya d'administrador:");
+            if (pass === "1234") {
+                socAdmin = true;
+                document.body.classList.add('admin-mode-active');
+                alert("Mode Admin Activat. Ara veus tot el menú.");
+                location.reload(); // Recarreguem per forçar el bucle a mostrar els ocults
             }
-        }, 3000);
-    };
-
-    const stop = () => clearTimeout(timer);
-
-    foto.addEventListener('mousedown', start);
-    foto.addEventListener('touchstart', start);
-    foto.addEventListener('mouseup', stop);
-    foto.addEventListener('touchend', stop);
+        }, 4000);
+    });
+    logo.addEventListener('mouseup', () => clearTimeout(timer));
 }
 
 function activarModeEdicio() {
-    // Fem editables els camps
     ['nom-edit', 'desc-edit', 'preu-edit'].forEach(id => {
         const el = document.getElementById(id);
-        el.contentEditable = "true";
-        el.style.outline = "2px dashed orange";
+        if(el) {
+            el.contentEditable = "true";
+            el.style.outline = "2px dashed orange";
+        }
     });
-    // Mostrem el botó de guardar
-    document.getElementById('btn-guardar-admin').style.display = "block";
+    const ctrl = document.getElementById('admin-controls');
+    const btn = document.getElementById('btn-guardar-admin');
+    if (ctrl) ctrl.style.display = "block";
+    if (btn) btn.style.display = "block";
 }
 
-
-
-// --- LOGICA DE PERSISTÈNCIA (ENVIAMENT A PIPEDREAM) ---
-
+// 6. PERSISTÈNCIA (PIPEDREAM)
 document.addEventListener('click', async (e) => {
-    // Només executem si el clic és al botó de guardar del modal
     if (e.target && e.target.id === 'btn-guardar-admin') {
         const boto = e.target;
-        
-        // 1. Extracció de dades (Agafem el que el "jefe" ha escrit)
         const idAirtable = document.getElementById('nom-edit').dataset.id;
         const nouNom = document.getElementById('nom-edit').innerText.trim();
         const novaDesc = document.getElementById('desc-edit').innerText.trim();
-        let nouPreu = document.getElementById('preu-edit').innerText.replace(',', '.').trim();
+        const nouPreu = document.getElementById('preu-edit').innerText.replace(',', '.').trim();
+        const esVisible = document.getElementById('visible-edit').checked;
 
-        // 2. Validació preventiva (Evitem que Airtable ens rebutgi la dada)
-        if (!idAirtable) {
-            alert("Error: No s'ha trobat la ID del plat.");
-            return;
-        }
-        
-        const preuNumeric = parseFloat(nouPreu);
-        if (isNaN(preuNumeric)) {
-            alert("Error: El preu ha de ser un número (ex: 12.50). No posis el símbol €.");
-            return;
-        }
+        if (isNaN(parseFloat(nouPreu))) return alert("Preu no vàlid");
 
-        // Preparem el "paquet" (JSON)
         const dades = {
             id: idAirtable,
-            fields: {
-                "Nom": nouNom,
-                "Descripcio": novaDesc,
-                "Preu": preuNumeric
-            }
+            fields: { "Nom": nouNom, "Descripcio": novaDesc, "Preu": parseFloat(nouPreu), "Visible": esVisible }
         };
 
         try {
-            // Feedback visual: bloquegem el botó mentre s'envia
             boto.disabled = true;
             boto.innerText = "Sincronitzant...";
-
-            // 3. El "xut" a Pipedream
-            const response = await fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
+            await fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dades)
             });
-
-            if (response.ok) {
-                alert("✓ Canvis guardats correctament a Airtable.");
-                location.reload(); // Recarreguem la pàgina per veure els canvis reals
-            } else {
-                throw new Error("Error en la resposta del servidor.");
-            }
+            alert("✓ Guardat!");
+            location.reload();
         } catch (error) {
-            console.error("Fallada de xarxa:", error);
-            alert("No s'ha pogut connectar amb el servidor. Reintenta-ho.");
+            alert("Error de connexió");
             boto.disabled = false;
-            boto.innerText = "REINTENTAR";
         }
     }
 });

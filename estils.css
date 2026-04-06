@@ -488,3 +488,14 @@ body::after {
     z-index: 9999;
     pointer-events: none;
 }
+
+
+
+/* 1. El marc taronja que t'indica que ets admin */
+body.admin-mode-active { border: 5px solid orange !important; }
+
+/* 2. Mostrar els plats que el Worker envia però que tenen 'Visible: false' */
+.item-ocult { display: block !important; opacity: 0.5; }
+
+/* 3. El botó de guardar i el checkbox (estaran ocults per defecte) */
+#admin-controls, #btn-guardar-admin { display: none; }
