@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const imgPath = foto ? `${baseRuta}${foto}` : `${baseRuta}Default.png`;
 
             html += `
-                <div class="bloc-galeria-item" onclick="obrirModal('${f.Nom || 'Plat'}', '${imgPath}', \`${f.Descripcio || ''}\`, '${f.Preu || '0'}')">
+                <div class="bloc-galeria-item" onclick="obrirModal('${r.id}','${f.Nom || 'Plat'}', '${imgPath}', \`${f.Descripcio || ''}\`, '${f.Preu || '0'}')">
                     <img src="${imgPath}" alt="${f.Nom || 'Plat'}" onerror="this.src='${baseRuta}Default.png'">
                     <div class="detalls-producte">
                         <h3 class="titol-item">${f.Nom || "Sense nom"}</h3>
@@ -84,21 +84,61 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // FUNCIÓ MODAL (FORA)
-window.obrirModal = function(nom, foto, desc, preu) {
+window.obrirModal = function(idAirtable, nom, foto, desc, preu) {
     const contingut = document.getElementById('contingut-dinamic-modal');
     const modal = document.getElementById('modal-detall');
     if (!contingut || !modal) return;
 
     contingut.innerHTML = `
-        <img src="${foto}" style="width:100%; height:250px; object-fit:cover;">
+        <img id="foto-edit" src="${foto}" style="width:100%; height:250px; object-fit:cover;">
+        
         <div style="padding:20px; text-align:left;">
-            <h2 style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
-            <p style="color:#666; margin:15px 0; line-height:1.5; font-size:15px;">${desc}</p>
+            <h2 id="nom-edit" data-id="${idAirtable}" style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
+            <p id="desc-edit" style="color:#666; margin:15px 0; line-height:1.5; font-size:15px;">${desc}</p>
+            
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
-                <span style="font-size:22px; font-weight:bold; color:#191970;">${preu} €</span>
+                <span style="font-size:22px; font-weight:bold; color:#191970;"><span id="preu-edit">${preu}</span> €</span>
                 <button onclick="tancarModal()" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">Tancar</button>
             </div>
+
+            <button id="btn-guardar-admin" style="display:none; width:100%; margin-top:20px; padding:10px; background:green; color:white; border:none; border-radius:5px;">
+                CONFIRMAR CANVIS EN AIRTABLE
+            </button>
         </div>
     `;
     modal.style.display = 'flex';
+
+    // Iniciem el detector de 3 segons sobre la foto que acabem de crear
+    iniciarDetectorAdmin();
 };
+function iniciarDetectorAdmin() {
+    const foto = document.getElementById('foto-edit');
+    let timer;
+
+    const start = () => {
+        timer = setTimeout(() => {
+            if (confirm("Vols activar el mode edició?")) {
+                const pass = prompt("Contrasenya:");
+                if (pass === "1234") activarModeEdicio();
+            }
+        }, 3000);
+    };
+
+    const stop = () => clearTimeout(timer);
+
+    foto.addEventListener('mousedown', start);
+    foto.addEventListener('touchstart', start);
+    foto.addEventListener('mouseup', stop);
+    foto.addEventListener('touchend', stop);
+}
+
+function activarModeEdicio() {
+    // Fem editables els camps
+    ['nom-edit', 'desc-edit', 'preu-edit'].forEach(id => {
+        const el = document.getElementById(id);
+        el.contentEditable = "true";
+        el.style.outline = "2px dashed orange";
+    });
+    // Mostrem el botó de guardar
+    document.getElementById('btn-guardar-admin').style.display = "block";
+}
