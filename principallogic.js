@@ -74,30 +74,32 @@ document.addEventListener('DOMContentLoaded', function() {
     iniciarDetectorLogo();
 });
 
-// 4. FUNCIÓ MODAL (EL TEU NOU MODAL)
-window.obrirModal = function(idAirtable, nom, foto, desc, preu, is_visible) {
+window.obrirModal = function(idAirtable, nom, foto, desc, preu) {
     const contingut = document.getElementById('contingut-dinamic-modal');
-    // ... (la teva lògica d'obertura)
-    
+    const modal = document.getElementById('modal-detall');
+    if (!contingut || !modal) return;
+
     contingut.innerHTML = `
-        <img id="foto-modal-img" src="${foto}" style="width:100%; height:250px; object-fit:cover;">
-        <div style="padding:20px;">
-            <h2 id="nom-edit" data-id="${idAirtable}">${nom}</h2>
-            <p id="desc-edit">${desc}</p>
-            <span><span id="preu-edit">${preu}</span> €</span>
+        <img id="foto-edit" src="${foto}" style="width:100%; height:250px; object-fit:cover;">
+        
+        <div style="padding:20px; text-align:left;">
+            <h2 id="nom-edit" data-id="${idAirtable}" style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
+            <p id="desc-edit" style="color:#666; margin:15px 0; line-height:1.5; font-size:15px;">${desc}</p>
             
-            <div id="admin-extra" style="display:none; margin-top:15px; border-top:1px solid #ccc; padding-top:10px;">
-                <label><input type="checkbox" id="visible-edit" ${is_visible ? 'checked' : ''}> Visible</label>
-                <input type="text" id="foto-url-edit" value="${foto}" style="width:100%; margin-top:5px;">
-                <button id="btn-guardar-admin" style="width:100%; margin-top:10px; background:orange;">GUARDAR</button>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+                <span style="font-size:22px; font-weight:bold; color:#191970;"><span id="preu-edit">${preu}</span> €</span>
+                <button onclick="tancarModal()" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">Tancar</button>
             </div>
-            
-            <button onclick="tancarModal()">Tancar</button>
+
+            <button id="btn-guardar-admin" style="display:none; width:100%; margin-top:20px; padding:10px; background:green; color:white; border:none; border-radius:5px;">
+                CONFIRMAR CANVIS
+            </button>
         </div>
     `;
-    
-    // Si venim de ME (Mode Edició), els fem visibles
-    if (window.modeEdicio) activarInterficieAdmin();
+    modal.style.display = 'flex';
+
+    // Iniciem el detector de 3 segons sobre la foto
+    iniciarDetectorAdmin();
 };
 
 // 5. DETECTORS I MODE ADMIN
