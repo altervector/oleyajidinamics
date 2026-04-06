@@ -102,12 +102,15 @@ window.obrirModal = function(idAirtable, nom, foto, desc, preu) {
             </div>
 
             <button id="btn-guardar-admin" style="display:none; width:100%; margin-top:20px; padding:10px; background:green; color:white; border:none; border-radius:5px;">
-                CONFIRMAR CANVIS EN AIRTABLE
+                CONFIRMAR CANVIS
             </button>
         </div>
     `;
     modal.style.display = 'flex';
 
+   
+   
+   
     // Iniciem el detector de 3 segons sobre la foto que acabem de crear
     iniciarDetectorAdmin();
 };
@@ -142,3 +145,67 @@ function activarModeEdicio() {
     // Mostrem el botó de guardar
     document.getElementById('btn-guardar-admin').style.display = "block";
 }
+
+
+
+// --- LOGICA DE PERSISTÈNCIA (ENVIAMENT A PIPEDREAM) ---
+
+document.addEventListener('click', async (e) => {
+    // Només executem si el clic és al botó de guardar del modal
+    if (e.target && e.target.id === 'btn-guardar-admin') {
+        const boto = e.target;
+        
+        // 1. Extracció de dades (Agafem el que el "jefe" ha escrit)
+        const idAirtable = document.getElementById('nom-edit').dataset.id;
+        const nouNom = document.getElementById('nom-edit').innerText.trim();
+        const novaDesc = document.getElementById('desc-edit').innerText.trim();
+        let nouPreu = document.getElementById('preu-edit').innerText.replace(',', '.').trim();
+
+        // 2. Validació preventiva (Evitem que Airtable ens rebutgi la dada)
+        if (!idAirtable) {
+            alert("Error: No s'ha trobat la ID del plat.");
+            return;
+        }
+        
+        const preuNumeric = parseFloat(nouPreu);
+        if (isNaN(preuNumeric)) {
+            alert("Error: El preu ha de ser un número (ex: 12.50). No posis el símbol €.");
+            return;
+        }
+
+        // Preparem el "paquet" (JSON)
+        const dades = {
+            id: idAirtable,
+            fields: {
+                "Nom": nouNom,
+                "Descripcio": novaDesc,
+                "Preu": preuNumeric
+            }
+        };
+
+        try {
+            // Feedback visual: bloquegem el botó mentre s'envia
+            boto.disabled = true;
+            boto.innerText = "Sincronitzant...";
+
+            // 3. El "xut" a Pipedream
+            const response = await fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dades)
+            });
+
+            if (response.ok) {
+                alert("✓ Canvis guardats correctament a Airtable.");
+                location.reload(); // Recarreguem la pàgina per veure els canvis reals
+            } else {
+                throw new Error("Error en la resposta del servidor.");
+            }
+        } catch (error) {
+            console.error("Fallada de xarxa:", error);
+            alert("No s'ha pogut connectar amb el servidor. Reintenta-ho.");
+            boto.disabled = false;
+            boto.innerText = "REINTENTAR";
+        }
+    }
+});
