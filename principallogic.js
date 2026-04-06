@@ -74,98 +74,30 @@ document.addEventListener('DOMContentLoaded', function() {
     iniciarDetectorLogo();
 });
 
+
+
+                   //     MODAL    
+
 window.obrirModal = function(idAirtable, nom, foto, desc, preu) {
     const contingut = document.getElementById('contingut-dinamic-modal');
     const modal = document.getElementById('modal-detall');
     if (!contingut || !modal) return;
 
     contingut.innerHTML = `
-        <img id="foto-edit" src="${foto}" style="width:100%; height:250px; object-fit:cover;">
-        
+        <img src="${foto}" alt="${nom}" style="width:100%; height:250px; object-fit:cover; border-radius:10px 10px 0 0;">
         <div style="padding:20px; text-align:left;">
-            <h2 id="nom-edit" data-id="${idAirtable}" style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
-            <p id="desc-edit" style="color:#666; margin:15px 0; line-height:1.5; font-size:15px;">${desc}</p>
-            
+            <h2 style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
+            <p style="color:#666; margin:15px 0; line-height:1.5; font-size:15px;">${desc}</p>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
-                <span style="font-size:22px; font-weight:bold; color:#191970;"><span id="preu-edit">${preu}</span> €</span>
+                <span style="font-size:22px; font-weight:bold; color:#191970;">${preu} €</span>
                 <button onclick="tancarModal()" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">Tancar</button>
             </div>
-
-            <button id="btn-guardar-admin" style="display:none; width:100%; margin-top:20px; padding:10px; background:green; color:white; border:none; border-radius:5px;">
-                CONFIRMAR CANVIS
-            </button>
         </div>
     `;
     modal.style.display = 'flex';
-
-    // Iniciem el detector de 3 segons sobre la foto
-    iniciarDetectorAdmin();
 };
 
-// 5. DETECTORS I MODE ADMIN
-function iniciarDetectorLogo() {
-    const logo = document.querySelector('.logo img') || document.querySelector('.logo'); // Busca el teu logo
-    if (!logo) return;
-    let timer;
-
-    logo.addEventListener('mousedown', () => {
-        timer = setTimeout(() => {
-            const pass = prompt("Contrasenya d'administrador:");
-            if (pass === "1234") {
-                socAdmin = true;
-                document.body.classList.add('admin-mode-active');
-                alert("Mode Admin Activat. Ara veus tot el menú.");
-                location.reload(); // Recarreguem per forçar el bucle a mostrar els ocults
-            }
-        }, 4000);
-    });
-    logo.addEventListener('mouseup', () => clearTimeout(timer));
-}
-
-function activarModeEdicio() {
-    ['nom-edit', 'desc-edit', 'preu-edit'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) {
-            el.contentEditable = "true";
-            el.style.outline = "2px dashed orange";
-        }
-    });
-    const ctrl = document.getElementById('admin-controls');
-    const btn = document.getElementById('btn-guardar-admin');
-    if (ctrl) ctrl.style.display = "block";
-    if (btn) btn.style.display = "block";
-}
-
-// 6. PERSISTÈNCIA (PIPEDREAM)
-document.addEventListener('click', async (e) => {
-    if (e.target && e.target.id === 'btn-guardar-admin') {
-        const boto = e.target;
-        const idAirtable = document.getElementById('nom-edit').dataset.id;
-        const nouNom = document.getElementById('nom-edit').innerText.trim();
-        const novaDesc = document.getElementById('desc-edit').innerText.trim();
-        const nouPreu = document.getElementById('preu-edit').innerText.replace(',', '.').trim();
-        const esVisible = document.getElementById('visible-edit').checked;
-
-        if (isNaN(parseFloat(nouPreu))) return alert("Preu no vàlid");
-
-        const dades = {
-            id: idAirtable,
-            fields: { "Nom": nouNom, "Descripcio": novaDesc, "Preu": parseFloat(nouPreu), "Visible": esVisible }
-        };
-
-        try {
-            boto.disabled = true;
-            boto.innerText = "Sincronitzant...";
-            await fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dades)
-            });
-            alert("✓ Guardat!");
-            location.reload();
-        } catch (error) {
-            alert("Error de connexió");
-            boto.disabled = false;
-        }
-    }
-});
+window.tancarModal = function() {
+    const modal = document.getElementById('modal-detall');
+    if (modal) modal.style.display = 'none';
+};
