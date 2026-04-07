@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const login = (e) => {
-            e.preventDefault(); // Atura el menú del mòbil i l'arrossegament del PC
+            //e.preventDefault(); // Atura el menú del mòbil i l'arrossegament del PC
             timerLogo = setTimeout(() => {
                 if (prompt("Clau:") === "1234") {
                     sessionStorage.setItem('adminMode', 'true');
