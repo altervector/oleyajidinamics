@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (logo) {
             // Blau permanent si som admin
             if (sessionStorage.getItem('adminMode') === 'true') {
-                document.body.style.setProperty('background-color', '#fff9f0', 'important');// Fons taronja suau
+                
                 logo.style.filter = "brightness(0) saturate(100%) invert(20%) sepia(98%) saturate(3019%) hue-rotate(202deg)"; 
             }
 

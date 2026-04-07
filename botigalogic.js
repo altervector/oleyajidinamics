@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (socAdmin) {
         // Apliquem el canvi visual permanent a tota la web
-        
+        document.body.style.setProperty('background-color', '#fff9f0', 'important');// Fons taronja suau
         document.body.classList.add('admin-on'); // Per si vols fer servir CSS
         console.log("Mode Edició Actiu");
     }
