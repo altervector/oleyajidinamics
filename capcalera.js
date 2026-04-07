@@ -73,15 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 timerLogo = setTimeout(() => {
                     if (prompt("Clau:") === "1234") {
                         sessionStorage.setItem('adminMode', 'true');
-                        
-                        // --- CANVI VISIBLE IMMEDIAT ---
-                        logo.style.filter = "sepia(1) saturate(5) hue-rotate(170deg)"; // El logo es torna blau/taronja
-                        document.body.style.backgroundColor = "#fff3e0"; // El fons canvia a un to taronja suau
-                        
-                        // Esperem mig segon per veure el canvi i llavors recarreguem
-                        setTimeout(() => {
-                            location.reload(); 
-                        }, 5000);
+                        // Marcatge visual instantani
+                        document.body.style.border = "10px solid orange"; 
+                        location.reload(); 
                     }
                 }, 4000);
             };
