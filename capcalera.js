@@ -55,6 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const logo = el.querySelector('.logo');
         let timerLogo;
 
+// --- DISSENY MODE ME ---
+        if (sessionStorage.getItem('adminMode') === 'true' && logo) {
+            document.body.style.backgroundColor = "#fff9f0"; // Fons taronja suau
+            logo.style.filter = "hue-rotate(200deg) saturate(2)"; // Logo Blau
+        }
+
         if (logo) {
             // Blau permanent si som admin
             if (sessionStorage.getItem('adminMode') === 'true') {
