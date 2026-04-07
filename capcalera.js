@@ -49,36 +49,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /////////////////////////////////////////////////////- ---  LOGIN  PER "ME" ---
+// --- LOGICA DE LOGIN I LOGO BLAU ---
         const logo = el.querySelector('.logo');
         let timerLogo;
 
-        if (logo) {
-            const login = () => {
-                timerLogo = setTimeout(() => {
-                    if (prompt("Clau:") === "1234") {
-                        sessionStorage.setItem('adminMode', 'true');
-                        // Marcatge visual instantani
-                        document.body.style.border = "10px solid orange"; 
-                        location.reload(); 
-                    }
-                }, 4000);
-            };
-
-            const stop = () => clearTimeout(timerLogo);
-
-            // ORDINADOR
-            logo.addEventListener('mousedown', (e) => {
-                e.preventDefault(); // Això evita que el ratolí "arrossegui" la foto
-                login();
-            });
-            logo.addEventListener('mouseup', stop);
-            logo.addEventListener('mouseleave', stop); // Seguretat: si surts del logo
-
-            // MÒBIL
-            logo.addEventListener('touchstart', (e) => {
-                e.preventDefault(); // Evita el menú contextual del mòbil (guardar imatge, etc.)
-                login();
-            }, { passive: false });
-            logo.addEventListener('touchend', stop);
+        // 1. Si ja som admin, el logo es torna blau al carregar
+        if (sessionStorage.getItem('adminMode') === 'true') {
+            logo.style.filter = "hue-rotate(200deg) saturate(2)"; 
         }
+
+        const login = (e) => {
+            e.preventDefault(); // Atura el menú del mòbil i l'arrossegament del PC
+            timerLogo = setTimeout(() => {
+                if (prompt("Clau:") === "1234") {
+                    sessionStorage.setItem('adminMode', 'true');
+                    location.reload(); 
+                }
+            }, 4000);
+        };
+
+        const stop = () => clearTimeout(timerLogo);
+
+        // ORDINADOR
+        logo.addEventListener('mousedown', login);
+        logo.addEventListener('mouseup', stop);
+        logo.addEventListener('mouseleave', stop);
+
+        // MÒBIL
+        logo.addEventListener('touchstart', login, { passive: false });
+        logo.addEventListener('touchend', stop);
     
