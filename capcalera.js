@@ -75,7 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
             logo.addEventListener('mouseleave', stop); // Seguretat: si surts del logo
 
             // MÒBIL
-            logo.addEventListener('touchstart', login);
+            logo.addEventListener('touchstart', (e) => {
+                e.preventDefault(); // Evita el menú contextual del mòbil (guardar imatge, etc.)
+                login();
+            }, { passive: false });
             logo.addEventListener('touchend', stop);
         }
     
