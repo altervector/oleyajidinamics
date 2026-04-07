@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         // Esperem mig segon per veure el canvi i llavors recarreguem
                         setTimeout(() => {
                             location.reload(); 
-                        }, 500);
+                        }, 5000);
                     }
                 }, 4000);
             };
