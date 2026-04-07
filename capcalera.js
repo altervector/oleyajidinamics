@@ -70,12 +70,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const stop = () => clearTimeout(timerLogo);
 
-        // ORDINADOR
-        logo.addEventListener('mousedown', login);
-        logo.addEventListener('mouseup', stop);
-        logo.addEventListener('mouseleave', stop);
+      // ORDINADOR
+            logo.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                login();
+            });
+            logo.addEventListener('mouseup', stop);
+            logo.addEventListener('mouseleave', stop);
 
-        // MÒBIL
-        logo.addEventListener('touchstart', login, { passive: false });
-        logo.addEventListener('touchend', stop);
+            // MÒBIL
+            logo.addEventListener('touchstart', login);
+            logo.addEventListener('touchend', stop);
+        
     
