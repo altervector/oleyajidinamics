@@ -81,7 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const stop = () => clearTimeout(timerLogo);
 
             // ORDINADOR
-            logo.addEventListener('mousedown', login);
+            logo.addEventListener('mousedown', (e) => {
+                e.preventDefault(); // Això evita que el ratolí "arrossegui" la foto
+                login();
+            });
             logo.addEventListener('mouseup', stop);
             logo.addEventListener('mouseleave', stop); // Seguretat: si surts del logo
 
