@@ -50,27 +50,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /////////////////////////////////////////////////////- ---  LOGIN  PER "ME" ---
 // --- LOGICA DE LOGIN I LOGO BLAU ---
-        const logo = el.querySelector('.logo');
+       const logo = el.querySelector('.logo');
         let timerLogo;
 
-        // 1. Si ja som admin, el logo es torna blau al carregar
-        if (sessionStorage.getItem('adminMode') === 'true') {
-            logo.style.filter = "hue-rotate(200deg) saturate(2)"; 
-        }
+        if (logo) {
+            const login = () => {
+                timerLogo = setTimeout(() => {
+                    if (prompt("Clau:") === "1234") {
+                        sessionStorage.setItem('adminMode', 'true');
+                        location.reload(); 
+                    }
+                }, 4000);
+            };
 
-        const login = (e) => {
-            //e.preventDefault(); // Atura el menú del mòbil i l'arrossegament del PC
-            timerLogo = setTimeout(() => {
-                if (prompt("Clau:") === "1234") {
-                    sessionStorage.setItem('adminMode', 'true');
-                    location.reload(); 
-                }
-            }, 4000);
-        };
+            const stop = () => clearTimeout(timerLogo);
 
-        const stop = () => clearTimeout(timerLogo);
-
-      // ORDINADOR
+            // ORDINADOR
             logo.addEventListener('mousedown', (e) => {
                 e.preventDefault();
                 login();
@@ -81,5 +76,4 @@ document.addEventListener("DOMContentLoaded", () => {
             // MÒBIL
             logo.addEventListener('touchstart', login);
             logo.addEventListener('touchend', stop);
-        
-    
+        }
