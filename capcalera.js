@@ -22,7 +22,10 @@ if (!metaDesc) {
 }
 metaDesc.setAttribute("content", "Donde Colombia y España se unen en sabor.");
 
+
+
 ////////////////////////////////////////////    4. Capçalera (HTML) - S'executa quan el document està a punt  //////////
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const headerHTML = `
@@ -42,19 +45,24 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     const el = document.getElementById("capcalera-dinamica");
-    if (el) el.innerHTML = headerHTML;
-});
+    
+    if (el) {
+        el.innerHTML = headerHTML;
+
+/////////////////////////////////////////////////   LOGIN PER "ME" ////////////////////////////////
 
 
-
-
-/////////////////////////////////////////////////////- ---  LOGIN  PER "ME" ---
-// --- LOGICA DE LOGIN I LOGO BLAU ---
-       const logo = el.querySelector('.logo');
+    const logo = el.querySelector('.logo');
         let timerLogo;
 
         if (logo) {
-            const login = () => {
+            // Blau permanent si som admin
+            if (sessionStorage.getItem('adminMode') === 'true') {
+                logo.style.filter = "hue-rotate(200deg) saturate(2)"; 
+            }
+
+            const login = (e) => {
+                if (e) e.preventDefault(); // Evita que el mòbil vulgui "desar imatge"
                 timerLogo = setTimeout(() => {
                     if (prompt("Clau:") === "1234") {
                         sessionStorage.setItem('adminMode', 'true');
@@ -66,14 +74,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const stop = () => clearTimeout(timerLogo);
 
             // ORDINADOR
-            logo.addEventListener('mousedown', (e) => {
-                e.preventDefault();
-                login();
-            });
+            logo.addEventListener('mousedown', login);
             logo.addEventListener('mouseup', stop);
             logo.addEventListener('mouseleave', stop);
 
             // MÒBIL
-            logo.addEventListener('touchstart', login);
+            logo.addEventListener('touchstart', login, { passive: false });
             logo.addEventListener('touchend', stop);
         }
+    }
+});
