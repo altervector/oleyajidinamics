@@ -56,15 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
         let timerLogo;
 
 // --- DISSENY MODE ME ---
-        if (sessionStorage.getItem('adminMode') === 'true' && logo) {
-            document.body.style.backgroundColor = "#fff9f0"; // Fons taronja suau
-            logo.style.filter = "hue-rotate(200deg) saturate(2)"; // Logo Blau
-        }
+  
 
         if (logo) {
             // Blau permanent si som admin
             if (sessionStorage.getItem('adminMode') === 'true') {
-                logo.style.filter = "hue-rotate(200deg) saturate(2)"; 
+                document.body.style.backgroundColor = "#fff9f0"; // Fons taronja suau
+                logo.style.filter = "brightness(0) saturate(100%) invert(34%) sepia(98%) saturate(3019%) hue-rotate(202deg)"; 
             }
 
             const login = (e) => {
