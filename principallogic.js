@@ -79,22 +79,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
                    //     MODAL    
 
-window.obrirModal = function(idAirtable, nom, foto, desc, preu) {
+window.obrirModal = function(idAirtable, nom, foto, desc, preu, esVisible) {
     const contingut = document.getElementById('contingut-dinamic-modal');
     const modal = document.getElementById('modal-detall');
     if (!contingut || !modal) return;
 
-    contingut.innerHTML = `
-        <img src="${foto}" alt="${nom}" style="width:100%; height:250px; object-fit:cover; border-radius:10px 10px 0 0;">
-        <div style="padding:20px; text-align:left;">
-            <h2 style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
-            <p style="color:#666; margin:15px 0; line-height:1.5; font-size:15px;">${desc}</p>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
-                <span style="font-size:22px; font-weight:bold; color:#191970;">${preu} €</span>
-                <button onclick="tancarModal()" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">Tancar</button>
+    if (socAdmin) {
+        // MODE ADMIN: Formulari editable
+        contingut.innerHTML = `
+            <img src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
+            <div style="padding:20px; text-align:left; display:flex; flex-direction:column; gap:10px;">
+                <input type="text" id="edit-nom" value="${nom}" placeholder="Nom del plat" style="width:100%; padding:8px; border:1px solid #ccc;">
+                <textarea id="edit-desc" placeholder="Descripció" style="width:100%; height:80px; padding:8px; border:1px solid #ccc;">${desc}</textarea>
+                <input type="number" id="edit-preu" value="${preu}" placeholder="Preu" style="width:100%; padding:8px; border:1px solid #ccc;">
+                
+                <div style="margin:10px 0; display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="edit-visible" ${esVisible ? 'checked' : ''}>
+                    <label>Visible a la web</label>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; margin-top:10px;">
+                    <button onclick="tancarModal()" style="padding:8px 15px; background:#ccc; border:none; border-radius:5px; cursor:pointer;">Cancel·lar</button>
+                    <button onclick="guardarCanvis('${idAirtable}')" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">GUARDAR</button>
+                </div>
             </div>
-        </div>
-    `;
+        `;
+    } else {
+        // MODE NORMAL: El teu codi original intacte
+        contingut.innerHTML = `
+            <img src="${foto}" alt="${nom}" style="width:100%; height:250px; object-fit:cover; border-radius:10px 10px 0 0;">
+            <div style="padding:20px; text-align:left;">
+                <h2 style="margin:0; color:#191970; font-size:22px;">${nom}</h2>
+                <p style="color:#666; margin:15px 0; line-height:1.5; font-size:15px;">${desc}</p>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+                    <span style="font-size:22px; font-weight:bold; color:#191970;">${preu} €</span>
+                    <button onclick="tancarModal()" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">Tancar</button>
+                </div>
+            </div>
+        `;
+    }
+    
     modal.style.display = 'flex';
 };
 
