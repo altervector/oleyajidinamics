@@ -56,8 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (socAdmin) {
         // Apliquem el canvi visual permanent a tota la web
-        logo.style.filter = "brightness(0) saturate(100%) invert(15%) sepia(98%) saturate(3019%) hue-rotate(202deg)"; 
-        document.body.style.setProperty('background-color', '#fb9d46', 'important');// Fons taronja suau
+        
         document.body.classList.add('admin-on'); // Per si vols fer servir CSS
         console.log("Mode Edició Actiu");
     }
