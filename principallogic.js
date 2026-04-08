@@ -86,6 +86,7 @@ window.obrirModal = function(idAirtable, nom, foto, desc, preu, esVisible) {
 
     if (socAdmin) {
         // MODE ADMIN: Formulari editable
+        modal.style.backgroundColor = "rgba(255, 140, 0, 0.5)"; // Fons Taronja
         contingut.innerHTML = `
             <img src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
             <div style="padding:20px; text-align:left; display:flex; flex-direction:column; gap:10px;">
@@ -106,6 +107,7 @@ window.obrirModal = function(idAirtable, nom, foto, desc, preu, esVisible) {
         `;
     } else {
         // MODE NORMAL: El teu codi original intacte
+        modal.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Fons Negre Client
         contingut.innerHTML = `
             <img src="${foto}" alt="${nom}" style="width:100%; height:250px; object-fit:cover; border-radius:10px 10px 0 0;">
             <div style="padding:20px; text-align:left;">
