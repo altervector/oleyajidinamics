@@ -497,7 +497,7 @@ body.admin-mode-active { border: 5px solid orange !important; }
 
 /* 2. Mostrar els plats que el Worker envia però que tenen 'Visible: false' */
 .item-ocult { 
-    display: block !important; 
+    /*display: block !important;*/ 
     opacity: 0.5; 
     filter: grayscale(100%); 
     border: 2px dashed gray; 
