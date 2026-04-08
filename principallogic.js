@@ -136,10 +136,10 @@ window.guardarCanvis = function(idAirtable) {
     // 1. Recollim les dades dels inputs del modal
     const dades = {
         id: idAirtable,
-        nom: document.getElementById('edit-nom').value,
-        desc: document.getElementById('edit-desc').value,
-        preu: document.getElementById('edit-preu').value,
-        visible: document.getElementById('edit-visible').checked
+        Nom: document.getElementById('edit-nom').value,
+        Descripcio: document.getElementById('edit-desc').value,
+        Preu: document.getElementById('edit-preu').value,
+        Visible: document.getElementById('edit-visible').checked
     };
 
     console.log("Enviant canvis a Pipedream:", dades);
