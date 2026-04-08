@@ -1,4 +1,4 @@
-// 1. FORÇAR RECARREGA DEL CSS
+//////////////////////////////////////////////////// 1. FORÇAR RECARREGA DEL CSS    //////////////////////////////
 (function() {
     var links = document.getElementsByTagName("link");
     for (var i = 0; i < links.length; i++) {
@@ -9,8 +9,9 @@
     }
 })();
 
-// 2. VARIABLES D'ESTAT I MODAL
-// Canvia la línia 14 per això:
+////////////////////////////////////////////////////   2. VARIABLES D'ESTAT I MODAL    ///////////////////////////////
+
+
 let socAdmin = sessionStorage.getItem('adminMode') === 'true';
 const modalHTML = `
     <div id="modal-detall">
@@ -24,7 +25,8 @@ window.tancarModal = function() {
     document.getElementById('modal-detall').style.display = 'none';
 }
 
-// 3. CÀRREGA DE DADES (EL BUCLE)
+////////////////////////////////////////////////////// 3. CÀRREGA DE DADES (EL BUCLE)   ///////////////////////////
+
 document.addEventListener('DOMContentLoaded', function() {
     const contenidor = document.getElementById("cosgaleria");
     const titolHTML = document.getElementById("titol-categoria");
@@ -76,8 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-                   //     MODAL    
+  ////////////////////////////////////////////////     MODAL    /////////////////////////////////////////////
 
 window.obrirModal = function(idAirtable, nom, foto, desc, preu, esVisible) {
     const contingut = document.getElementById('contingut-dinamic-modal');
@@ -127,4 +128,34 @@ window.obrirModal = function(idAirtable, nom, foto, desc, preu, esVisible) {
 window.tancarModal = function() {
     const modal = document.getElementById('modal-detall');
     if (modal) modal.style.display = 'none';
+};
+
+////////////////////////////////////////////////     GUARDAR CANVIS MODE EDICIO  ///////////////////////////////////////////////
+
+window.guardarCanvis = function(idAirtable) {
+    // 1. Recollim les dades dels inputs del modal
+    const dades = {
+        id: idAirtable,
+        nom: document.getElementById('edit-nom').value,
+        desc: document.getElementById('edit-desc').value,
+        preu: document.getElementById('edit-preu').value,
+        visible: document.getElementById('edit-visible').checked
+    };
+
+    console.log("Enviant canvis a Pipedream:", dades);
+
+    // 2. Enviament (aquí posarem la teva URL de Pipedream)
+    fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
+        method: 'POST',
+        body: JSON.stringify(dades)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Guardat correctament! Refresca per veure els canvis.");
+            tancarModal();
+        } else {
+            alert("Error al guardar.");
+        }
+    })
+    .catch(error => console.error('Error:', error));
 };
