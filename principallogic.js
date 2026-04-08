@@ -10,7 +10,8 @@
 })();
 
 // 2. VARIABLES D'ESTAT I MODAL
-let socAdmin = false;
+// Canvia la línia 14 per això:
+let socAdmin = sessionStorage.getItem('adminMode') === 'true';
 const modalHTML = `
     <div id="modal-detall">
         <span class="tancar-modal" onclick="tancarModal()">&times;</span>

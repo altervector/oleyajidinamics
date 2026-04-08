@@ -496,7 +496,12 @@ body::after {
 body.admin-mode-active { border: 5px solid orange !important; }
 
 /* 2. Mostrar els plats que el Worker envia però que tenen 'Visible: false' */
-.item-ocult { display: block !important; opacity: 0.5; }
+.item-ocult { 
+    display: block !important; 
+    opacity: 0.5; 
+    filter: grayscale(100%); 
+    border: 2px dashed gray; 
+}
 
 /* 3. El botó de guardar i el checkbox (estaran ocults per defecte) */
 #admin-controls, #btn-guardar-admin { display: none; }
