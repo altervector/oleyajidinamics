@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const classeExtra = esVisible ? '' : 'item-ocult';
 
-            html += `
-                <div class="bloc-galeria-item ${classeExtra}" onclick="obrirModal('${r.id}','${f.Nom || 'Plat'}', '${imgPath}', \`${f.Descripcio || ''}\`, '${f.Preu || '0'}', ${esVisible})">
+           html += `
+                <div class="bloc-galeria-item ${classeExtra}" onclick="obrirModal('${r.id}', '${(f.Nom || 'Plat').replace(/'/g, "\\'")}', '${imgPath}', '${(f.Descripcio || "").replace(/'/g, "\\'")}', '${f.Preu || '0'}', ${esVisible})">
                     <img src="${imgPath}" alt="${f.Nom || 'Plat'}" onerror="this.src='${baseRuta}Default.png'">
                     <div class="detalls-producte">
                         <h3 class="titol-item">${f.Nom || "Sense nom"}</h3>
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (contenidor) contenidor.innerHTML = html;
         if (titolHTML) titolHTML.classList.remove('loading');
     });
-
+    
     // Activem el detector del Logo per entrar en mode Admin
     iniciarDetectorLogo();
 });
@@ -147,7 +147,7 @@ window.guardarCanvis = function(idAirtable) {
                 id: idAirtable,
                 "Nom": document.getElementById('edit-nom').value,
                 "Descripcio": document.getElementById('edit-desc').value,
-                "Preu": parseFloat(document.getElementById('edit-preu').value) || 0
+                "Preu": document.getElementById('edit-preu').value,
                 "Visible": document.getElementById('edit-visible').checked,
                 "Categoria": [document.getElementById('edit-categoria').value] // Airtable sol esperar un Array per a les categories
             };
@@ -157,9 +157,6 @@ window.guardarCanvis = function(idAirtable) {
     // 2. Enviament (aquí posarem la teva URL de Pipedream)
     fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
         method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-    },
         body: JSON.stringify(dades)
     })
     .then(response => {
