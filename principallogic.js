@@ -148,12 +148,12 @@ window.tancarModal = function() {
 window.guardarCanvis = function(idAirtable) {
     // 1. Recollim les dades forçant el format que Airtable exigeix
     const dades = {
-        id: idAirtable,
-        "Nom": document.getElementById('edit-nom').value,
-        "Descripcio": document.getElementById('edit-desc').value,
-        "Preu": Number(document.getElementById('edit-preu').value), // Airtable vol Number, no String
-        "Visible": document.getElementById('edit-visible').checked, // Booleà real
-        "Categoria": [document.getElementById('edit-categoria').value] // Airtable vol Array per a Selects
+    id: idAirtable,
+    "Nom": document.getElementById('edit-nom').value.trim(),
+    "Descripcio": document.getElementById('edit-desc').value.trim(),
+    "Preu": parseFloat(document.getElementById('edit-preu').value.replace(',', '.')), 
+    "Visible": document.getElementById('edit-visible').checked,
+    "Categoria": [document.getElementById('edit-categoria').value.trim()]
     };
 
     // RESTAURAT: Crucial per veure si el que enviem és el que pensem
