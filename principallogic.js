@@ -81,6 +81,10 @@ document.addEventListener('DOMContentLoaded', function() {
   ////////////////////////////////////////////////     MODAL    /////////////////////////////////////////////
 
 window.obrirModal = function(idAirtable, nom, foto, desc, preu, esVisible) {
+
+    const params = new URLSearchParams(window.location.search); // <--- AFEGEIX AIXÒ
+    const catClau = params.get('Categoria') || '';              // <--- I AIXÒ
+    
     const contingut = document.getElementById('contingut-dinamic-modal');
     const modal = document.getElementById('modal-detall');
     if (!contingut || !modal) return;
