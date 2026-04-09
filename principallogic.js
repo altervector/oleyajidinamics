@@ -100,6 +100,11 @@ window.obrirModal = function(idAirtable, nom, foto, desc, preu, esVisible) {
                     <label>Visible a la web</label>
                 </div>
 
+                    <div style="margin:10px 0; display:flex; flex-direction:column; gap:5px;">
+                    <label style="font-size:12px; color:#666;">Categoria:</label>
+                    <input type="text" id="edit-categoria" value="${catClau}" style="width:100%; padding:8px; border:1px solid #ccc;">
+                    </div>
+
                 <div style="display:flex; justify-content:space-between; margin-top:10px;">
                     <button onclick="tancarModal()" style="padding:8px 15px; background:#ccc; border:none; border-radius:5px; cursor:pointer;">Cancel·lar</button>
                     <button onclick="guardarCanvis('${idAirtable}')" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">GUARDAR</button>
@@ -134,13 +139,14 @@ window.tancarModal = function() {
 
 window.guardarCanvis = function(idAirtable) {
     // 1. Recollim les dades dels inputs del modal
-    const dades = {
-        id: idAirtable,
-        Nom: document.getElementById('edit-nom').value,
-        Descripcio: document.getElementById('edit-desc').value,
-        Preu: document.getElementById('edit-preu').value,
-        Visible: document.getElementById('edit-visible').checked
-    };
+        const dades = {
+                id: idAirtable,
+                "Nom": document.getElementById('edit-nom').value,
+                "Descripcio": document.getElementById('edit-desc').value,
+                "Preu": document.getElementById('edit-preu').value,
+                "Visible": document.getElementById('edit-visible').checked,
+                "Categoria": [document.getElementById('edit-categoria').value] // Airtable sol esperar un Array per a les categories
+            };
 
     console.log("Enviant canvis a Pipedream:", dades);
 
