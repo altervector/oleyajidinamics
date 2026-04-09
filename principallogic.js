@@ -157,6 +157,9 @@ window.guardarCanvis = function(idAirtable) {
     // 2. Enviament (aquí posarem la teva URL de Pipedream)
     fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
         method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+    },
         body: JSON.stringify(dades)
     })
     .then(response => {
