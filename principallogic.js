@@ -147,7 +147,7 @@ window.guardarCanvis = function(idAirtable) {
                 id: idAirtable,
                 "Nom": document.getElementById('edit-nom').value,
                 "Descripcio": document.getElementById('edit-desc').value,
-                "Preu": document.getElementById('edit-preu').value,
+                "Preu": parseFloat(document.getElementById('edit-preu').value) || 0
                 "Visible": document.getElementById('edit-visible').checked,
                 "Categoria": [document.getElementById('edit-categoria').value] // Airtable sol esperar un Array per a les categories
             };
