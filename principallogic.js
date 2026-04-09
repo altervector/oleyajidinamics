@@ -80,7 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   ////////////////////////////////////////////////     MODAL    /////////////////////////////////////////////
 
+////////////////////////////////////////////////    MODAL I PREVISUALITZACIÓ    /////////////////////////////////////////////
+
 window.obrirModal = function(idAirtable, foto, esVisible, el) {
+    // 1. Extracció de dades de l'element clicat (seguretat total contra cometes)
     const nom = el.querySelector('.titol-item').innerText;
     const desc = el.querySelector('.desc-text').innerText;
     const preu = el.querySelector('.preu-text').innerText;
@@ -93,9 +96,16 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
     if (!contingut || !modal) return;
 
     if (socAdmin) {
+        // MODE ADMIN: Amb botó de canviar foto i camps editables
         modal.style.backgroundColor = "rgba(255, 140, 0, 0.5)";
         contingut.innerHTML = `
-            <img src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
+            <div style="position:relative;">
+                <img id="preview-foto" src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
+                <label for="upload-foto" style="position:absolute; bottom:10px; right:10px; background:#191970; color:#fff; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px; font-family:sans-serif;">
+                    📷 CANVIAR FOTO
+                </label>
+                <input type="file" id="upload-foto" style="display:none;" accept="image/*" onchange="window.previewImatge(this)">
+            </div>
             <div style="padding:20px; text-align:left; display:flex; flex-direction:column; gap:10px;">
                 <input type="text" id="edit-nom" value="${nom}" placeholder="Nom">
                 <textarea id="edit-desc" style="width:100%; height:80px;">${desc}</textarea>
@@ -112,16 +122,14 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
                 </div>
 
                 <div style="display:flex; justify-content:space-between; margin-top:10px;">
-                    <button onclick="tancarModal()">Cancel·lar</button>
-                    <button onclick="guardarCanvis('${idAirtable}')" style="background:#191970; color:#fff;">GUARDAR</button>
+                    <button onclick="tancarModal()" style="padding:8px 15px; background:#ccc; border:none; border-radius:5px; cursor:pointer;">Cancel·lar</button>
+                    <button onclick="guardarCanvis('${idAirtable}')" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">GUARDAR</button>
                 </div>
             </div>
         `;
     } else {
-       
-
-        // MODE NORMAL: El teu codi original intacte
-        modal.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Fons Negre Client
+        // MODE NORMAL: Disseny per al client
+        modal.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
         contingut.innerHTML = `
             <img src="${foto}" alt="${nom}" style="width:100%; height:250px; object-fit:cover; border-radius:10px 10px 0 0;">
             <div style="padding:20px; text-align:left;">
@@ -134,8 +142,23 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
             </div>
         `;
     }
-    
     modal.style.display = 'flex';
+};
+
+// Funció per previsualitzar la imatge abans de pujar-la
+window.previewImatge = function(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('preview-foto');
+            if (preview) {
+                preview.src = e.target.result;
+                // Guardem el Base64 en un "dataset" per enviar-lo després amb guardarCanvis
+                preview.dataset.base64 = e.target.result;
+            }
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 };
 
 window.tancarModal = function() {
