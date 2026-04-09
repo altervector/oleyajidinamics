@@ -169,20 +169,26 @@ window.tancarModal = function() {
 ////////////////////////////////////////////////     GUARDAR CANVIS MODE EDICIO  ///////////////////////////////////////////////
 
 window.guardarCanvis = function(idAirtable) {
-    // 1. Recollim les dades forçant el format que Airtable exigeix
+    // 1. Busquem si hi ha una foto nova previsualitzada (dataset.base64)
+    const previewImg = document.getElementById('preview-foto');
+    const fotoBase64 = previewImg ? previewImg.dataset.base64 : null;
+
+    // 2. Recollim les dades (EL TEU CODI ORIGINAL AMB ELS FORMATS CORRECTES)
     const dades = {
-    id: idAirtable,
-    "Nom": document.getElementById('edit-nom').value.trim(),
-    "Descripcio": document.getElementById('edit-desc').value.trim(),
-    "Preu": parseFloat(document.getElementById('edit-preu').value.replace(',', '.')), 
-    "Visible": document.getElementById('edit-visible').checked,
-    "Categoria": [document.getElementById('edit-categoria').value.trim()]
+        id: idAirtable,
+        "Nom": document.getElementById('edit-nom').value.trim(),
+        "Descripcio": document.getElementById('edit-desc').value.trim(),
+        "Preu": parseFloat(document.getElementById('edit-preu').value.replace(',', '.')), 
+        "Visible": document.getElementById('edit-visible').checked,
+        "Categoria": [document.getElementById('edit-categoria').value.trim()],
+        "FotoBase64": fotoBase64, // Nova dada per Pipedream
+        "NomArxiu": fotoBase64 ? `foto_${idAirtable}.webp` : null // Suggeriment de nom
     };
 
-    // RESTAURAT: Crucial per veure si el que enviem és el que pensem
-    console.log("Enviant canvis a Pipedream:", dades);
+    // RESTAURAT: El console.log que t'agrada, però simplificat per no omplir la pantalla si hi ha Base64
+    console.log("Enviant canvis a Pipedream:", { ...dades, "FotoBase64": fotoBase64 ? "IMATGE_DETECTADA" : "SENSE_CANVIS" });
 
-    // 2. Enviament a la teva URL de Pipedream
+    // 3. Enviament a la teva URL de Pipedream
     fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
         method: 'POST',
         headers: {
@@ -195,7 +201,7 @@ window.guardarCanvis = function(idAirtable) {
             console.log("Resposta Pipedream: OK");
             alert("Guardat correctament! Refresca per veure els canvis.");
             tancarModal();
-            location.reload(); // Forcem recàrrega per veure la realitat de la DB
+            location.reload(); 
         } else {
             console.error("Error a la resposta de Pipedream");
             alert("Error al guardar.");
