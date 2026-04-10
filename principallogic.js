@@ -45,12 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(records => { 
         let html = '';
-        const baseRuta = "https://altervector.github.io/oleyajidinamics/images/";
+        
+                const baseCloudy = "https://res.cloudinary.com/deopqx65a/image/upload/f_auto,q_auto/";
+                const fotoDefault = "https://altervector.github.io/oleyajidinamics/images/Default.png";
 
-        records.forEach(r => {
-            const f = r.fields;
-            let foto = Array.isArray(f.Foto) ? f.Foto[0] : f.Foto;
-            const imgPath = foto ? `${baseRuta}${foto}` : `${baseRuta}Default.png`;
+                records.forEach(r => {
+                    const f = r.fields;
+                    let foto = Array.isArray(f.Foto) ? f.Foto[0] : f.Foto;
+                    
+                    // Si hay algo escrito en Airtable, lo busca en Cloudinary. Si está vacío, usa la default.
+                    const imgPath = foto ? `${baseCloudy}${foto}` : fotoDefault;
             
             const esVisible = f.Visible === true;
             if (!esVisible && !socAdmin) return; 
