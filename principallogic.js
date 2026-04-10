@@ -99,7 +99,7 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
         // MODE ADMIN: Amb botó de canviar foto i camps editables
         modal.style.backgroundColor = "rgba(255, 140, 0, 0.5)";
         contingut.innerHTML = `
-            // //////////////////////////////////////////////////PEGA ESTO EN SU LUGAR:
+            
                     <div style="position:relative;" id="container-foto-admin">
                         <img id="preview-foto" src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
                         
@@ -230,4 +230,45 @@ window.guardarCanvis = function(idAirtable) {
         }
     })
     .catch(error => console.error('Error crític en el fetch:', error));
+};
+
+////////////////////////////////////////    GUARDAR FOTO    ///////////////////////////////////////////
+
+window.executarSubidaFoto = function(idAirtable, base64, nomOriginal) {
+    const btnAccion = document.getElementById('btn-foto-accion');
+    
+    // 1. Bloqueamos el botón para evitar clics dobles mientras sube
+    btnAccion.innerHTML = "⏳ PUJANT...";
+    btnAccion.style.pointerEvents = "none";
+    btnAccion.style.opacity = "0.7";
+
+    const dadesImagen = {
+        id: idAirtable,
+        foto: base64,
+        nomArxiu: nomOriginal // El nombre real que capturamos antes
+    };
+
+    // 2. Enviamos al NUEVO Trigger de Pipedream (Cloudinary)
+    fetch('https://eo8bpigfi64bhae.m.pipedream.net', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dadesImagen)
+    })
+    .then(response => {
+        if (response.ok) {
+            btnAccion.innerHTML = "✅ FOTO GUARDADA";
+            btnAccion.style.background = "#007bff"; // Volver a un color neutro o azul
+            alert("La imatge s'ha pujat correctament!");
+        } else {
+            throw new Error("Error en la pujada");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        btnAccion.innerHTML = "❌ ERROR";
+        btnAccion.style.background = "red";
+        btnAccion.style.pointerEvents = "auto";
+        btnAccion.style.opacity = "1";
+        alert("Hi ha hagut un problema pujant la foto.");
+    });
 };
