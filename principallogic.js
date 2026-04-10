@@ -11,7 +11,6 @@
 
 ////////////////////////////////////////////////////   2. VARIABLES D'ESTAT I MODAL    ///////////////////////////////
 
-
 let socAdmin = sessionStorage.getItem('adminMode') === 'true';
 const modalHTML = `
     <div id="modal-detall">
@@ -46,15 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(records => { 
         let html = '';
         
-                const baseCloudy = "https://res.cloudinary.com/deopqx65a/image/upload/f_auto,q_auto/";
-                const fotoDefault = "https://altervector.github.io/oleyajidinamics/images/Default.png";
+        // --- CONFIGURACIÓ RUTES IMATGES ---
+        const baseCloudy = "https://res.cloudinary.com/deopqx65a/image/upload/f_auto,q_auto/";
+        const fotoDefault = "https://altervector.github.io/oleyajidinamics/images/Default.png";
 
-                records.forEach(r => {
-                    const f = r.fields;
-                    let foto = Array.isArray(f.Foto) ? f.Foto[0] : f.Foto;
-                    
-                    // Si hay algo escrito en Airtable, lo busca en Cloudinary. Si está vacío, usa la default.
-                    const imgPath = foto ? `${baseCloudy}${foto}` : fotoDefault;
+        records.forEach(r => {
+            const f = r.fields;
+            let foto = Array.isArray(f.Foto) ? f.Foto[0] : f.Foto;
+            
+            // Si hi ha nom a Airtable -> Cloudinary. Si no -> Default GitHub
+            const imgPath = foto ? `${baseCloudy}${foto}` : fotoDefault;
             
             const esVisible = f.Visible === true;
             if (!esVisible && !socAdmin) return; 
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             html += `
                 <div class="bloc-galeria-item ${classeExtra}" 
                     onclick="obrirModal('${r.id}', '${imgPath}', ${esVisible}, this)">
-                    <img src="${imgPath}" alt="${f.Nom || 'Plat'}" onerror="this.src='${baseRuta}Default.png'">
+                    <img src="${imgPath}" alt="${f.Nom || 'Plat'}" onerror="this.src='${fotoDefault}'">
                     <div class="detalls-producte">
                         <h3 class="titol-item">${f.Nom || "Sense nom"}</h3>
                         <p class="desc-text">${f.Descripcio || ""}</p>
@@ -75,19 +75,20 @@ document.addEventListener('DOMContentLoaded', function() {
   
         if (contenidor) contenidor.innerHTML = html;
         if (titolHTML) titolHTML.classList.remove('loading');
+    })
+    .catch(err => {
+        console.error("Error carregant dades:", err);
+        if (titolHTML) titolHTML.innerText = "Error al carregar";
     });
 
     // Activem el detector del Logo per entrar en mode Admin
-    iniciarDetectorLogo();
+    if (typeof iniciarDetectorLogo === "function") iniciarDetectorLogo();
 });
 
 
-  ////////////////////////////////////////////////     MODAL    /////////////////////////////////////////////
-
-////////////////////////////////////////////////    MODAL I PREVISUALITZACIÓ    /////////////////////////////////////////////
+////////////////////////////////////////////////    MODAL I PREVISUALITZACIÓ    /////////////////////////////////////////////
 
 window.obrirModal = function(idAirtable, foto, esVisible, el) {
-    // 1. Extracció de dades de l'element clicat (seguretat total contra cometes)
     const nom = el.querySelector('.titol-item').innerText;
     const desc = el.querySelector('.desc-text').innerText;
     const preu = el.querySelector('.preu-text').innerText;
@@ -100,35 +101,28 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
     if (!contingut || !modal) return;
 
     if (socAdmin) {
-        // MODE ADMIN: Amb botó de canviar foto i camps editables
         modal.style.backgroundColor = "rgba(255, 140, 0, 0.5)";
         contingut.innerHTML = `
-            
-                    <div style="position:relative;" id="container-foto-admin">
-                        <img id="preview-foto" src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
-                        
-                        <label id="btn-foto-accion" for="upload-foto" style="position:absolute; bottom:10px; right:10px; background:#191970; color:#fff; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px; font-family:sans-serif;">
-                            📷 CANVIAR FOTO
-                        </label>
-                        
-                        <input type="file" id="upload-foto" style="display:none;" accept="image/*" 
-                            onchange="window.prepararSubidaFoto(this, '${idAirtable}')">
-                    </div>
+            <div style="position:relative;" id="container-foto-admin">
+                <img id="preview-foto" src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
+                <label id="btn-foto-accion" for="upload-foto" style="position:absolute; bottom:10px; right:10px; background:#191970; color:#fff; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px; font-family:sans-serif;">
+                    📷 CANVIAR FOTO
+                </label>
+                <input type="file" id="upload-foto" style="display:none;" accept="image/*" 
+                    onchange="window.prepararSubidaFoto(this, '${idAirtable}')">
+            </div>
             <div style="padding:20px; text-align:left; display:flex; flex-direction:column; gap:10px;">
                 <input type="text" id="edit-nom" value="${nom}" placeholder="Nom">
                 <textarea id="edit-desc" style="width:100%; height:80px;">${desc}</textarea>
                 <input type="number" id="edit-preu" value="${preu}" step="0.01">
-                
                 <div style="display:flex; align-items:center; gap:10px;">
                     <input type="checkbox" id="edit-visible" ${esVisible ? 'checked' : ''}>
                     <label>Visible a la web</label>
                 </div>
-
                 <div style="display:flex; flex-direction:column; gap:5px;">
                     <label style="font-size:12px; color:#666;">Categoria:</label>
                     <input type="text" id="edit-categoria" value="${categoriaActual}">
                 </div>
-
                 <div style="display:flex; justify-content:space-between; margin-top:10px;">
                     <button onclick="tancarModal()" style="padding:8px 15px; background:#ccc; border:none; border-radius:5px; cursor:pointer;">Cancel·lar</button>
                     <button onclick="guardarCanvis('${idAirtable}')" style="padding:8px 15px; background:#191970; color:#fff; border:none; border-radius:5px; cursor:pointer;">GUARDAR</button>
@@ -136,7 +130,6 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
             </div>
         `;
     } else {
-        // MODE NORMAL: Disseny per al client
         modal.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
         contingut.innerHTML = `
             <img src="${foto}" alt="${nom}" style="width:100%; height:250px; object-fit:cover; border-radius:10px 10px 0 0;">
@@ -153,32 +146,20 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
     modal.style.display = 'flex';
 };
 
-// Funció per previsualitzar la imatge abans de pujar-la
 window.prepararSubidaFoto = function(input, idAirtable) {
     if (input.files && input.files[0]) {
         const arxiu = input.files[0];
-        const nomOriginal = arxiu.name; // Capturamos el nombre real
-        
+        const nomOriginal = arxiu.name; 
         const reader = new FileReader();
         reader.onload = function(e) {
             const preview = document.getElementById('preview-foto');
             const btnAccion = document.getElementById('btn-foto-accion');
-            
             if (preview && btnAccion) {
-                // 1. Mostrar la foto nueva en el modal
                 preview.src = e.target.result;
-                
-                // 2. Transformar el botón
                 btnAccion.innerHTML = "💾 GUARDAR FOTO";
-                btnAccion.style.background = "#28a745"; // Color verde
-                
-                // 3. Quitar el comportamiento de "abrir archivo"
+                btnAccion.style.background = "#28a745"; 
                 btnAccion.removeAttribute('for');
-                
-                // 4. Asignar la función de subida real para cuando se pulse
                 btnAccion.onclick = function() {
-                    // Aquí llamaremos a la subida (la definiremos en el siguiente paso)
-                    console.log("Subiendo foto:", nomOriginal);
                     window.executarSubidaFoto(idAirtable, e.target.result, nomOriginal);
                 };
             }
@@ -187,49 +168,29 @@ window.prepararSubidaFoto = function(input, idAirtable) {
     }
 };
 
-window.tancarModal = function() {
-    const modal = document.getElementById('modal-detall');
-    if (modal) modal.style.display = 'none';
-};
-
 ////////////////////////////////////////////////     GUARDAR CANVIS MODE EDICIO  ///////////////////////////////////////////////
 
 window.guardarCanvis = function(idAirtable) {
-    // 1. Busquem si hi ha una foto nova previsualitzada (dataset.base64)
-    const previewImg = document.getElementById('preview-foto');
-    const fotoBase64 = previewImg ? previewImg.dataset.base64 : null;
-
-    // 2. Recollim les dades (EL TEU CODI ORIGINAL AMB ELS FORMATS CORRECTES)
     const dades = {
         id: idAirtable,
         "Nom": document.getElementById('edit-nom').value.trim(),
         "Descripcio": document.getElementById('edit-desc').value.trim(),
         "Preu": parseFloat(document.getElementById('edit-preu').value.replace(',', '.')), 
         "Visible": document.getElementById('edit-visible').checked,
-        "Categoria": [document.getElementById('edit-categoria').value.trim()],
-        "FotoBase64": fotoBase64, // Nova dada per Pipedream
-        "NomArxiu": fotoBase64 ? `foto_${idAirtable}.webp` : null // Suggeriment de nom
+        "Categoria": [document.getElementById('edit-categoria').value.trim()]
     };
 
-    // RESTAURAT: El console.log que t'agrada, però simplificat per no omplir la pantalla si hi ha Base64
-    console.log("Enviant canvis a Pipedream:", { ...dades, "FotoBase64": fotoBase64 ? "IMATGE_DETECTADA" : "SENSE_CANVIS" });
-
-    // 3. Enviament a la teva URL de Pipedream
     fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dades)
     })
     .then(response => {
         if (response.ok) {
-            console.log("Resposta Pipedream: OK");
             alert("Guardat correctament! Refresca per veure els canvis.");
             tancarModal();
             location.reload(); 
         } else {
-            console.error("Error a la resposta de Pipedream");
             alert("Error al guardar.");
         }
     })
@@ -242,10 +203,9 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
     const btnAccion = document.getElementById('btn-foto-accion');
     btnAccion.innerHTML = "⏳ OPTIMITZANT...";
     btnAccion.style.pointerEvents = "none";
-    btnAccion.style.background = "#ffc107"; // Color naranja mientras trabaja
+    btnAccion.style.background = "#ffc107";
 
     try {
-        // --- A. REDIMENSIONAR I COMPRIMIR (Clau per al mòbil) ---
         const img = new Image();
         img.src = base64;
         await img.decode();
@@ -253,34 +213,25 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
         const canvas = document.createElement('canvas');
         let width = img.width;
         let height = img.height;
-        const MAX_SIZE = 1080; // Mida suficient per a web
+        const MAX_SIZE = 1080;
 
         if (width > height) {
-            if (width > MAX_SIZE) {
-                height *= MAX_SIZE / width;
-                width = MAX_SIZE;
-            }
+            if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; }
         } else {
-            if (height > MAX_SIZE) {
-                width *= MAX_SIZE / height;
-                height = MAX_SIZE;
-            }
+            if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; }
         }
         canvas.width = width;
         canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
         
-        // Convertim a Blob JPEG (molt més lleuger que el Base64 original)
         const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.8));
 
-        // --- B. PUJADA DIRECTA A CLOUDINARY (Sense Pipedream entremig) ---
         btnAccion.innerHTML = "🚀 PUJANT...";
         const formData = new FormData();
         formData.append('file', blob);
-        formData.append('upload_preset', 'ml_default'); // El teu preset
+        formData.append('upload_preset', 'ml_default'); 
         
-        // Netegem el nom d'arxiu (sense espais ni punts)
         const nomNet = nomOriginal.split('.')[0].replace(/\s+/g, '_');
         formData.append('public_id', nomNet); 
 
@@ -292,7 +243,6 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
         const dataCloudy = await resCloudy.json();
 
         if (dataCloudy.secure_url) {
-            // --- C. AVISAR A PIPEDREAM (Només per actualitzar Airtable) ---
             btnAccion.innerHTML = "📝 ACTUALITZANT...";
             const nomFinal = dataCloudy.public_id + "." + dataCloudy.format;
 
@@ -308,16 +258,15 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
             btnAccion.innerHTML = "✅ FET!";
             btnAccion.style.background = "#28a745";
             alert("Imatge guardada correctament!");
-            // Opcional: location.reload(); si vols veure el canvi ja
+            location.reload();
         } else {
             throw new Error("Error en la resposta de Cloudinary");
         }
-
     } catch (error) {
         console.error("Error crític:", error);
         btnAccion.innerHTML = "❌ ERROR";
         btnAccion.style.pointerEvents = "auto";
         btnAccion.style.background = "#dc3545";
-        alert("No s'ha pogut pujar la foto. Revisa la connexió o el tamany.");
+        alert("No s'ha pogut pujar la foto.");
     }
 };
