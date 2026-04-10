@@ -99,13 +99,17 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
         // MODE ADMIN: Amb botó de canviar foto i camps editables
         modal.style.backgroundColor = "rgba(255, 140, 0, 0.5)";
         contingut.innerHTML = `
-            <div style="position:relative;">
-                <img id="preview-foto" src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
-                <label for="upload-foto" style="position:absolute; bottom:10px; right:10px; background:#191970; color:#fff; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px; font-family:sans-serif;">
-                    📷 CANVIAR FOTO
-                </label>
-                <input type="file" id="upload-foto" style="display:none;" accept="image/*" onchange="window.previewImatge(this)">
-            </div>
+            // //////////////////////////////////////////////////PEGA ESTO EN SU LUGAR:
+                    <div style="position:relative;" id="container-foto-admin">
+                        <img id="preview-foto" src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
+                        
+                        <label id="btn-foto-accion" for="upload-foto" style="position:absolute; bottom:10px; right:10px; background:#191970; color:#fff; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px; font-family:sans-serif;">
+                            📷 CANVIAR FOTO
+                        </label>
+                        
+                        <input type="file" id="upload-foto" style="display:none;" accept="image/*" 
+                            onchange="window.prepararSubidaFoto(this, '${idAirtable}')">
+                    </div>
             <div style="padding:20px; text-align:left; display:flex; flex-direction:column; gap:10px;">
                 <input type="text" id="edit-nom" value="${nom}" placeholder="Nom">
                 <textarea id="edit-desc" style="width:100%; height:80px;">${desc}</textarea>
@@ -146,18 +150,36 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
 };
 
 // Funció per previsualitzar la imatge abans de pujar-la
-window.previewImatge = function(input) {
+window.prepararSubidaFoto = function(input, idAirtable) {
     if (input.files && input.files[0]) {
+        const arxiu = input.files[0];
+        const nomOriginal = arxiu.name; // Capturamos el nombre real
+        
         const reader = new FileReader();
         reader.onload = function(e) {
             const preview = document.getElementById('preview-foto');
-            if (preview) {
+            const btnAccion = document.getElementById('btn-foto-accion');
+            
+            if (preview && btnAccion) {
+                // 1. Mostrar la foto nueva en el modal
                 preview.src = e.target.result;
-                // Guardem el Base64 en un "dataset" per enviar-lo després amb guardarCanvis
-                preview.dataset.base64 = e.target.result;
+                
+                // 2. Transformar el botón
+                btnAccion.innerHTML = "💾 GUARDAR FOTO";
+                btnAccion.style.background = "#28a745"; // Color verde
+                
+                // 3. Quitar el comportamiento de "abrir archivo"
+                btnAccion.removeAttribute('for');
+                
+                // 4. Asignar la función de subida real para cuando se pulse
+                btnAccion.onclick = function() {
+                    // Aquí llamaremos a la subida (la definiremos en el siguiente paso)
+                    console.log("Subiendo foto:", nomOriginal);
+                    window.executarSubidaFoto(idAirtable, e.target.result, nomOriginal);
+                };
             }
         };
-        reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(arxiu);
     }
 };
 
