@@ -234,41 +234,86 @@ window.guardarCanvis = function(idAirtable) {
 
 ////////////////////////////////////////    GUARDAR FOTO    ///////////////////////////////////////////
 
-window.executarSubidaFoto = function(idAirtable, base64, nomOriginal) {
+window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
     const btnAccion = document.getElementById('btn-foto-accion');
-    
-    // 1. Bloqueamos el botón para evitar clics dobles mientras sube
-    btnAccion.innerHTML = "⏳ PUJANT...";
+    btnAccion.innerHTML = "⏳ OPTIMITZANT...";
     btnAccion.style.pointerEvents = "none";
-    btnAccion.style.opacity = "0.7";
+    btnAccion.style.background = "#ffc107"; // Color naranja mientras trabaja
 
-    const dadesImagen = {
-        id: idAirtable,
-        foto: base64,
-        nomArxiu: nomOriginal // El nombre real que capturamos antes
-    };
+    try {
+        // --- A. REDIMENSIONAR I COMPRIMIR (Clau per al mòbil) ---
+        const img = new Image();
+        img.src = base64;
+        await img.decode();
+        
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        const MAX_SIZE = 1080; // Mida suficient per a web
 
-    // 2. Enviamos al NUEVO Trigger de Pipedream (Cloudinary)
-    fetch('https://eo8bpigfi64bhae.m.pipedream.net', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dadesImagen)
-    })
-    .then(response => {
-        if (response.ok) {
-            btnAccion.innerHTML = "✅ FOTO GUARDADA";
-            btnAccion.style.background = "#007bff"; // Volver a un color neutro o azul
-            alert("La imatge s'ha pujat correctament!");
+        if (width > height) {
+            if (width > MAX_SIZE) {
+                height *= MAX_SIZE / width;
+                width = MAX_SIZE;
+            }
         } else {
-            throw new Error("Error en la pujada");
+            if (height > MAX_SIZE) {
+                width *= MAX_SIZE / height;
+                height = MAX_SIZE;
+            }
         }
-    })
-    .catch(error => {
-        console.error("Error:", error);
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Convertim a Blob JPEG (molt més lleuger que el Base64 original)
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.8));
+
+        // --- B. PUJADA DIRECTA A CLOUDINARY (Sense Pipedream entremig) ---
+        btnAccion.innerHTML = "🚀 PUJANT...";
+        const formData = new FormData();
+        formData.append('file', blob);
+        formData.append('upload_preset', 'ml_default'); // El teu preset
+        
+        // Netegem el nom d'arxiu (sense espais ni punts)
+        const nomNet = nomOriginal.split('.')[0].replace(/\s+/g, '_');
+        formData.append('public_id', nomNet); 
+
+        const resCloudy = await fetch('https://api.cloudinary.com/v1_1/deopqx65a/image/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const dataCloudy = await resCloudy.json();
+
+        if (dataCloudy.secure_url) {
+            // --- C. AVISAR A PIPEDREAM (Només per actualitzar Airtable) ---
+            btnAccion.innerHTML = "📝 ACTUALITZANT...";
+            const nomFinal = dataCloudy.public_id + "." + dataCloudy.format;
+
+            await fetch('https://eo8bpigfi64bhae.m.pipedream.net', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: idAirtable,
+                    nomArxiu: nomFinal
+                })
+            });
+
+            btnAccion.innerHTML = "✅ FET!";
+            btnAccion.style.background = "#28a745";
+            alert("Imatge guardada correctament!");
+            // Opcional: location.reload(); si vols veure el canvi ja
+        } else {
+            throw new Error("Error en la resposta de Cloudinary");
+        }
+
+    } catch (error) {
+        console.error("Error crític:", error);
         btnAccion.innerHTML = "❌ ERROR";
-        btnAccion.style.background = "red";
         btnAccion.style.pointerEvents = "auto";
-        btnAccion.style.opacity = "1";
-        alert("Hi ha hagut un problema pujant la foto.");
-    });
+        btnAccion.style.background = "#dc3545";
+        alert("No s'ha pogut pujar la foto. Revisa la connexió o el tamany.");
+    }
 };
