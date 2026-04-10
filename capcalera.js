@@ -69,11 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const login = (e) => {
                 if (e) e.preventDefault(); // Evita que el mòbil vulgui "desar imatge"
                 timerLogo = setTimeout(() => {
-                    if (prompt("Clau:") === "3333") {
+                    if (prompt("Clau:") === "0000") {
                         sessionStorage.setItem('adminMode', 'true');
                         location.reload(); 
                     }
-                }, 3000);
+                }, 2000);
             };
 
             const stop = () => clearTimeout(timerLogo);
