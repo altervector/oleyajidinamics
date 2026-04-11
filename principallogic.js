@@ -326,7 +326,6 @@ window.obrirModalNuevo = function() {
             <input type="number" id="edit-preu" placeholder="Precio (0.00)" step="0.01" style="padding:8px; border:1px solid #ddd; border-radius:5px;">
             
             <input type="hidden" id="nombre-foto-nueva" value="">
-            
             <input type="hidden" id="edit-categoria" value="${categoriaActual}">
 
             <div style="display:flex; align-items:center; gap:10px;">
@@ -336,8 +335,15 @@ window.obrirModalNuevo = function() {
 
             <div style="display:flex; justify-content:space-between; margin-top:10px;">
                 <button onclick="tancarModal()" style="padding:10px 15px; background:#ccc; border:none; border-radius:5px; cursor:pointer;">Cancelar</button>
-                <button id="btn-crear-final" onclick="guardarCanvis(null)" style="padding:10px 15px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">CREAR PLATO</button>
+                
+                <button id="btn-crear-final" disabled onclick="guardarCanvis(null)" 
+                    style="padding:10px 15px; background:#888; color:#fff; border:none; border-radius:5px; cursor:not-allowed; font-weight:bold; opacity:0.6;">
+                    CREAR PLATO
+                </button>
             </div>
+            <p id="aviso-foto" style="font-size:11px; color:#d9534f; margin-top:10px; font-weight:bold;">
+                ⚠️ Primero debes subir la foto para poder crear el plato.
+            </p>
         </div>
     `;
     
