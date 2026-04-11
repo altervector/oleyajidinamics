@@ -162,17 +162,32 @@ window.prepararSubidaFoto = function(input, idAirtable) {
         const arxiu = input.files[0];
         const nomOriginal = arxiu.name; 
         const reader = new FileReader();
+        
         reader.onload = function(e) {
             const preview = document.getElementById('preview-foto');
             const btnAccion = document.getElementById('btn-foto-accion');
+            
             if (preview && btnAccion) {
                 preview.src = e.target.result;
-                btnAccion.innerHTML = "💾 GUARDAR FOTO";
+                
+                // Cambiamos el botón para confirmar la subida
+                btnAccion.innerHTML = "💾 CONFIRMAR I PUJAR FOTO";
                 btnAccion.style.background = "#28a745"; 
-                btnAccion.removeAttribute('for');
+                btnAccion.removeAttribute('for'); // Evita que se abra el selector otra vez al clicar
+                
                 btnAccion.onclick = function() {
                     window.executarSubidaFoto(idAirtable, e.target.result, nomOriginal);
                 };
+
+                // Añadimos el botón de "CAMBIAR" arriba a la derecha de la foto
+                if (!document.getElementById('btn-reintentar')) {
+                    const btnReintentar = `
+                        <label id="btn-reintentar" for="upload-foto" 
+                               style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); color:#fff; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px;">
+                               🔄 CAMBIAR
+                        </label>`;
+                    document.getElementById('container-foto-admin').insertAdjacentHTML('beforeend', btnReintentar);
+                }
             }
         };
         reader.readAsDataURL(arxiu);
