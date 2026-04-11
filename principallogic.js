@@ -82,22 +82,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Activem el detector del Logo per entrar en mode Admin
-        if (typeof iniciarDetectorLogo === "function") iniciarDetectorLogo();
+    if (typeof iniciarDetectorLogo === "function") iniciarDetectorLogo();
 
-            // --- NUEVO: BOTÓN FLOTANTE PARA AÑADIR ---
-            // --- BOTÓN FLOTANTE AJUSTADO AL CENTRO ---
-                    if (socAdmin) {
-                        const btnAfegir = `
-                            <div id="btn-nou-plat" onclick="window.obrirModalNuevo()" 
-                                style="position:fixed; bottom:20px; left:50%; transform:translateX(130px); width:60px; height:60px; background:#28a745; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:35px; cursor:pointer; z-index:9999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-family: sans-serif;">
-                                +
-                            </div>`;
-                        document.body.insertAdjacentHTML('beforeend', btnAfegir);
-                    }
-        });
+    // --- BOTÓN FLOTANTE AJUSTADO AL CENTRO ---
+    if (socAdmin) {
+        const btnAfegir = `
+            <div id="btn-nou-plat" onclick="window.obrirModalNuevo()" 
+                style="position:fixed; bottom:20px; left:50%; transform:translateX(130px); width:60px; height:60px; background:#28a745; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:35px; cursor:pointer; z-index:9999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-family: sans-serif;">
+                +
+            </div>`;
+        document.body.insertAdjacentHTML('beforeend', btnAfegir);
+    }
+});
 
 
-////////////////////////////////////////////////    MODAL I PREVISUALITZACIÓ    /////////////////////////////////////////////
+////////////////////////////////////////////////    MODAL I PREVISUALITZACIÓ    /////////////////////////////////////////////
 
 window.obrirModal = function(idAirtable, foto, esVisible, el) {
     const nom = el.querySelector('.titol-item').innerText;
@@ -285,7 +284,7 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
         if (dataCloudy.secure_url) {
             const nomFinal = dataCloudy.public_id + "." + dataCloudy.format;
 
-            // SI HAY ID: Actualizamos Airtable directamente (como ayer)
+            // SI HAY ID: Actualizamos Airtable directamente
             if (idAirtable && idAirtable !== "null") {
                 btnAccion.innerHTML = "📝 ACTUALITZANT...";
                 await fetch('https://oleyaji.altervector.workers.dev', {
@@ -293,14 +292,30 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: idAirtable, Foto: nomFinal })
                 });
+                btnAccion.innerHTML = "✅ FOTO PREPARADA";
+                btnAccion.style.background = "#28a745";
+                alert("Imatge actualitzada correctament!");
             } else {
-                // SI NO HAY ID (Plato nuevo): Guardamos el nombre en el campo oculto
+                // SI ES PLATO NUEVO: Guardamos nombre y DESBLOQUEAMOS BOTÓN FINAL
                 document.getElementById('nombre-foto-nueva').value = nomFinal;
-            }
+                
+                const btnFinal = document.getElementById('btn-crear-final');
+                if (btnFinal) {
+                    btnFinal.disabled = false;
+                    btnFinal.style.background = "#28a745";
+                    btnFinal.style.cursor = "pointer";
+                    btnFinal.style.opacity = "1";
+                }
 
-            btnAccion.innerHTML = "✅ FOTO PREPARADA";
-            btnAccion.style.background = "#28a745";
-            alert("Imatge a punt! Ara omple los dades i dóna-li a Crear.");
+                const aviso = document.getElementById('aviso-foto');
+                if (aviso) aviso.style.display = 'none';
+
+                const btnRe = document.getElementById('btn-reintentar');
+                if (btnRe) btnRe.remove();
+
+                btnAccion.innerHTML = "✅ FOTO EN LA NUBE";
+                btnAccion.style.background = "#28a745";
+            }
         }
     } catch (error) {
         console.error("Error:", error);
@@ -309,6 +324,7 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
         btnAccion.style.background = "#dc3545";
     }
 };
+
 ///////////////////////////////////////////////     MODAL BLANC   ////////////////////////
 
 window.obrirModalNuevo = function() {
