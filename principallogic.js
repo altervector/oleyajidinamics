@@ -182,14 +182,28 @@ window.prepararSubidaFoto = function(input, idAirtable) {
 ////////////////////////////////////////////////     GUARDAR CANVIS MODE EDICIO  ///////////////////////////////////////////////
 
 window.guardarCanvis = function(idAirtable) {
+    const idReal = (idAirtable === "null" || !idAirtable) ? null : idAirtable;
+    
+    // Recollim dades bàsiques
     const dades = {
-        id: idAirtable,
+        id: idReal,
         "Nom": document.getElementById('edit-nom').value.trim(),
         "Descripcio": document.getElementById('edit-desc').value.trim(),
-        "Preu": parseFloat(document.getElementById('edit-preu').value.replace(',', '.')), 
+        "Preu": parseFloat(document.getElementById('edit-preu').value.replace(',', '.')) || 0, 
         "Visible": document.getElementById('edit-visible').checked,
         "Categoria": [document.getElementById('edit-categoria').value.trim()]
     };
+
+    // Si és un plat nou, afegim la foto si se n'ha pujat una
+    if (!idReal) {
+        const fotoNova = document.getElementById('nombre-foto-nueva').value;
+        if (fotoNova) {
+            dades["Foto"] = fotoNova;
+        }
+    }
+
+    // Validació mínima
+    if (!dades.Nom) { alert("El nom és obligatori"); return; }
 
     fetch('https://oleyaji.altervector.workers.dev', {
         method: 'POST',
@@ -198,14 +212,14 @@ window.guardarCanvis = function(idAirtable) {
     })
     .then(response => {
         if (response.ok) {
-            alert("Guardat correctament! Refresca per veure els canvis.");
+            alert(idReal ? "Guardat correctament!" : "Nou plat creat amb èxit!");
             tancarModal();
             location.reload(); 
         } else {
-            alert("Error al guardar.");
+            alert("Error en l'operació.");
         }
     })
-    .catch(error => console.error('Error crític en el fetch:', error));
+    .catch(error => console.error('Error:', error));
 };
 
 ////////////////////////////////////////    GUARDAR FOTO    ///////////////////////////////////////////
@@ -243,7 +257,7 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
         formData.append('file', blob);
         formData.append('upload_preset', 'ml_default'); 
         
-        const nomNet = nomOriginal.split('.')[0].replace(/\s+/g, '_');
+        const nomNet = nomOriginal.split('.')[0].replace(/\s+/g, '_') + "_" + Date.now();
         formData.append('public_id', nomNet); 
 
         const resCloudy = await fetch('https://api.cloudinary.com/v1_1/deopqx65a/image/upload', {
@@ -254,31 +268,30 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
         const dataCloudy = await resCloudy.json();
 
         if (dataCloudy.secure_url) {
-            btnAccion.innerHTML = "📝 ACTUALITZANT...";
             const nomFinal = dataCloudy.public_id + "." + dataCloudy.format;
 
-            await fetch('https://oleyaji.altervector.workers.dev', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    id: idAirtable,
-                    nomArxiu: nomFinal
-                })
-            });
+            // SI HAY ID: Actualizamos Airtable directamente (como ayer)
+            if (idAirtable && idAirtable !== "null") {
+                btnAccion.innerHTML = "📝 ACTUALITZANT...";
+                await fetch('https://oleyaji.altervector.workers.dev', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: idAirtable, Foto: nomFinal })
+                });
+            } else {
+                // SI NO HAY ID (Plato nuevo): Guardamos el nombre en el campo oculto
+                document.getElementById('nombre-foto-nueva').value = nomFinal;
+            }
 
-            btnAccion.innerHTML = "✅ FET!";
+            btnAccion.innerHTML = "✅ FOTO PREPARADA";
             btnAccion.style.background = "#28a745";
-            alert("Imatge guardada correctament!");
-            location.reload();
-        } else {
-            throw new Error("Error en la resposta de Cloudinary");
+            alert("Imatge a punt! Ara omple los dades i dóna-li a Crear.");
         }
     } catch (error) {
-        console.error("Error crític:", error);
+        console.error("Error:", error);
         btnAccion.innerHTML = "❌ ERROR";
         btnAccion.style.pointerEvents = "auto";
         btnAccion.style.background = "#dc3545";
-        alert("No s'ha pogut pujar la foto.");
     }
 };
 ///////////////////////////////////////////////     MODAL BLANC   ////////////////////////
