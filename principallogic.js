@@ -85,14 +85,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeof iniciarDetectorLogo === "function") iniciarDetectorLogo();
 
             // --- NUEVO: BOTÓN FLOTANTE PARA AÑADIR ---
-            if (socAdmin) {
-                const btnAfegir = `
-                    <div id="btn-nou-plat" onclick="window.obrirModalNuevo()" 
-                        style="position:fixed; bottom:20px; right:20px; width:60px; height:60px; background:#28a745; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:35px; cursor:pointer; z-index:9999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-family: sans-serif; line-height: 1;">
-                        +
-                    </div>`;
-                document.body.insertAdjacentHTML('beforeend', btnAfegir);
-            }
+            // --- BOTÓN FLOTANTE AJUSTADO AL CENTRO ---
+                    if (socAdmin) {
+                        const btnAfegir = `
+                            <div id="btn-nou-plat" onclick="window.obrirModalNuevo()" 
+                                style="position:fixed; bottom:20px; left:50%; transform:translateX(130px); width:60px; height:60px; background:#28a745; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:35px; cursor:pointer; z-index:9999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-family: sans-serif;">
+                                +
+                            </div>`;
+                        document.body.insertAdjacentHTML('beforeend', btnAfegir);
+                    }
         });
 
 
@@ -283,7 +284,6 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
 ///////////////////////////////////////////////     MODAL BLANC   ////////////////////////
 
 window.obrirModalNuevo = function() {
-    // Definimos la foto por defecto
     const fotoDefault = "https://altervector.github.io/oleyajidinamics/images/Default.png";
     const urlParams = new URLSearchParams(window.location.search);
     const categoriaActual = urlParams.get('Categoria') || '';
@@ -293,31 +293,38 @@ window.obrirModalNuevo = function() {
     
     if (!contingut || !modal) return;
 
-    // Cambiamos el color a verde (modo creación)
-    modal.style.backgroundColor = "rgba(40, 167, 69, 0.7)"; 
+    modal.style.backgroundColor = "rgba(40, 167, 69, 0.8)"; 
     
     contingut.innerHTML = `
-        <div style="padding:20px; text-align:left; display:flex; flex-direction:column; gap:10px; background: white; border-radius: 10px; margin: 10px;">
-            <h2 style="margin:0; color:#28a745;">Nuevo Plato</h2>
-            <input type="text" id="edit-nom" value="" placeholder="Nombre del plato">
-            <textarea id="edit-desc" style="width:100%; height:80px;" placeholder="Descripción"></textarea>
-            <input type="number" id="edit-preu" value="" placeholder="Precio (ej: 12.50)" step="0.01">
+        <div style="position:relative;" id="container-foto-admin">
+            <img id="preview-foto" src="${fotoDefault}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
+            <label id="btn-foto-accion" for="upload-foto" style="position:absolute; bottom:10px; right:10px; background:#191970; color:#fff; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px;">
+                📷 SELECCIONAR FOTO
+            </label>
+            <input type="file" id="upload-foto" style="display:none;" accept="image/*" 
+                onchange="window.prepararSubidaFoto(this, null)">
+        </div>
+
+        <div style="padding:20px; text-align:left; display:flex; flex-direction:column; gap:10px;">
+            <h2 style="margin:0; color:#28a745; font-size:18px;">Nuevo Plato en ${categoriaActual}</h2>
             
+            <input type="text" id="edit-nom" placeholder="Nombre del plato" style="padding:8px; border:1px solid #ddd; border-radius:5px;">
+            <textarea id="edit-desc" style="width:100%; height:70px; padding:8px; border:1px solid #ddd; border-radius:5px;" placeholder="Descripción"></textarea>
+            <input type="number" id="edit-preu" placeholder="Precio (0.00)" step="0.01" style="padding:8px; border:1px solid #ddd; border-radius:5px;">
+            
+            <input type="hidden" id="nombre-foto-nueva" value="">
+            
+            <input type="hidden" id="edit-categoria" value="${categoriaActual}">
+
             <div style="display:flex; align-items:center; gap:10px;">
                 <input type="checkbox" id="edit-visible" checked>
                 <label>Visible en la web</label>
             </div>
 
-            <div style="display:flex; flex-direction:column; gap:5px;">
-                <label style="font-size:12px; color:#666;">Categoria:</label>
-                <input type="text" id="edit-categoria" value="${categoriaActual}">
-            </div>
-
             <div style="display:flex; justify-content:space-between; margin-top:10px;">
-                <button onclick="tancarModal()" style="padding:8px 15px; background:#ccc; border:none; border-radius:5px; cursor:pointer;">Cancelar</button>
-                <button onclick="guardarCanvis(null)" style="padding:8px 15px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">CREAR PLATO</button>
+                <button onclick="tancarModal()" style="padding:10px 15px; background:#ccc; border:none; border-radius:5px; cursor:pointer;">Cancelar</button>
+                <button id="btn-crear-final" onclick="guardarCanvis(null)" style="padding:10px 15px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">CREAR PLATO</button>
             </div>
-            <p style="font-size:11px; color:#888; margin-top:10px;">* Primero crea el plato y luego podrás añadirle la foto.</p>
         </div>
     `;
     
