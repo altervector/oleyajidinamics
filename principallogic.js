@@ -82,8 +82,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Activem el detector del Logo per entrar en mode Admin
-    if (typeof iniciarDetectorLogo === "function") iniciarDetectorLogo();
-});
+        if (typeof iniciarDetectorLogo === "function") iniciarDetectorLogo();
+
+            // --- NUEVO: BOTÓN FLOTANTE PARA AÑADIR ---
+            if (socAdmin) {
+                const btnAfegir = `
+                    <div id="btn-nou-plat" onclick="window.obrirModalNuevo()" 
+                        style="position:fixed; bottom:20px; right:20px; width:60px; height:60px; background:#28a745; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:35px; cursor:pointer; z-index:9999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-family: sans-serif; line-height: 1;">
+                        +
+                    </div>`;
+                document.body.insertAdjacentHTML('beforeend', btnAfegir);
+            }
+        });
 
 
 ////////////////////////////////////////////////    MODAL I PREVISUALITZACIÓ    /////////////////////////////////////////////
@@ -180,7 +190,7 @@ window.guardarCanvis = function(idAirtable) {
         "Categoria": [document.getElementById('edit-categoria').value.trim()]
     };
 
-    fetch('https://eo9kzqd94eu875w.m.pipedream.net', {
+    fetch('https://oleyaji.altervector.workers.dev', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dades)
@@ -246,7 +256,7 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
             btnAccion.innerHTML = "📝 ACTUALITZANT...";
             const nomFinal = dataCloudy.public_id + "." + dataCloudy.format;
 
-            await fetch('https://eo8bpigfi64bhae.m.pipedream.net', {
+            await fetch('https://oleyaji.altervector.workers.dev', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -269,4 +279,47 @@ window.executarSubidaFoto = async function(idAirtable, base64, nomOriginal) {
         btnAccion.style.background = "#dc3545";
         alert("No s'ha pogut pujar la foto.");
     }
+};
+///////////////////////////////////////////////     MODAL BLANC   ////////////////////////
+
+window.obrirModalNuevo = function() {
+    // Definimos la foto por defecto
+    const fotoDefault = "https://altervector.github.io/oleyajidinamics/images/Default.png";
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoriaActual = urlParams.get('Categoria') || '';
+
+    const contingut = document.getElementById('contingut-dinamic-modal');
+    const modal = document.getElementById('modal-detall');
+    
+    if (!contingut || !modal) return;
+
+    // Cambiamos el color a verde (modo creación)
+    modal.style.backgroundColor = "rgba(40, 167, 69, 0.7)"; 
+    
+    contingut.innerHTML = `
+        <div style="padding:20px; text-align:left; display:flex; flex-direction:column; gap:10px; background: white; border-radius: 10px; margin: 10px;">
+            <h2 style="margin:0; color:#28a745;">Nuevo Plato</h2>
+            <input type="text" id="edit-nom" value="" placeholder="Nombre del plato">
+            <textarea id="edit-desc" style="width:100%; height:80px;" placeholder="Descripción"></textarea>
+            <input type="number" id="edit-preu" value="" placeholder="Precio (ej: 12.50)" step="0.01">
+            
+            <div style="display:flex; align-items:center; gap:10px;">
+                <input type="checkbox" id="edit-visible" checked>
+                <label>Visible en la web</label>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:5px;">
+                <label style="font-size:12px; color:#666;">Categoria:</label>
+                <input type="text" id="edit-categoria" value="${categoriaActual}">
+            </div>
+
+            <div style="display:flex; justify-content:space-between; margin-top:10px;">
+                <button onclick="tancarModal()" style="padding:8px 15px; background:#ccc; border:none; border-radius:5px; cursor:pointer;">Cancelar</button>
+                <button onclick="guardarCanvis(null)" style="padding:8px 15px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">CREAR PLATO</button>
+            </div>
+            <p style="font-size:11px; color:#888; margin-top:10px;">* Primero crea el plato y luego podrás añadirle la foto.</p>
+        </div>
+    `;
+    
+    modal.style.display = 'flex';
 };
