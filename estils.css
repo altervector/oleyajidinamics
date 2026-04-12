@@ -467,6 +467,14 @@ Si quieres añadir el blanco junto al amarillo para suavizar el contraste, la se
     opacity: 1!important;
     margin-top: 10px;
     margin-bottom: 40px;
+    /* El toque de diseño */
+    font-size: 2.2rem;          /* Tamaño potente pero no gigante */
+    color: #191970;             /* Tu azul corporativo */
+    text-transform: uppercase;  /* Todo a mayúsculas (da autoridad) */
+    letter-spacing: 3px;        /* Separa un poco las letras (toque premium) */
+    border-bottom: 2px solid #191970; /* Una línea fina debajo para enmarcar */
+    display: inline-block;      /* Para que la línea de abajo no ocupe todo el ancho */
+    padding-bottom: 5px;        /* Espacio entre el texto y su línea */
 }
 
 
