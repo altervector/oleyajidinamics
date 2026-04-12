@@ -3,7 +3,7 @@
    ============================================================ */
 /* Añade esto al principio de estils.css */
 html {
-    background-color: #f0f0f0; /* Un color grisáceo para el fondo de fuera de la web */
+    /*background-color: #f0f0f0; /* Un color grisáceo para el fondo de fuera de la web */
      box-sizing: border-box; /* Evita que els marges eixamplin les caixes */
     font-family: Arial, sans-serif;
 }
