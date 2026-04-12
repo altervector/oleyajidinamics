@@ -466,18 +466,29 @@ Si quieres añadir el blanco junto al amarillo para suavizar el contraste, la se
     visibility: visible!important;
     opacity: 1!important;
     margin-top: 7px;
-    margin-bottom: 20px;
-    /* El toque de diseño */
-    font-size: 2rem;          /* Tamaño potente pero no gigante */
-    font-weight: 350;           /* Letra fina, menos "pesada" */
-    color: #0056b3;                /* Un gris muy oscuro, menos agresivo que el azul o negro */
-    letter-spacing: 1px;        /* Separa un poco las letras (toque premium) */
-    text-align: center;         /* Centrado suele quedar mejor en galerías */
-    width: 100%;                /* Asegura el centrado */
-    border-bottom: 1px solid #0056b3; /* Una línea fina debajo para enmarcar */
-    display: inline-block;      /* Para que la línea de abajo no ocupe todo el ancho */
-    padding-bottom: 5px;        /* Espacio entre el texto y su línea */
+    margin-bottom: 5px; /* Reducimos este para que la línea no quede muy lejos */
+    
+    font-size: 2rem;
+    font-weight: 350;
+    color: #0056b3;
+    letter-spacing: 1px;
+    text-align: center;
+    width: 100%;
 }
+/* LA LÍNEA (Como un HR pero personalizado) */
+#titol-categoria::after, #contingut-fitxa h1::after {
+    content: "";
+    display: block;
+    
+    /* AJUSTES DE LA LÍNEA: Pon aquí lo que quieras */
+    width: 80px;           /* El ancho fijo que tú decidas */
+    height: 1px;           /* El grosor */
+    background: #0056b3;   /* El color */
+    
+    /* POSICIONAMIENTO */
+    margin: 15px auto;     /* El 'auto' la centra, el 15px le da aire arriba */
+}
+
 
 
 /* --- DECORACIÓ DE NADAL --- */
