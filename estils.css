@@ -465,7 +465,7 @@ Si quieres añadir el blanco junto al amarillo para suavizar el contraste, la se
 #titol-categoria, #contingut-fitxa h1 {
     visibility: visible!important;
     opacity: 1!important;
-    margin-top: 10px;
+    margin-top: 7px;
     margin-bottom: 20px;
     /* El toque de diseño */
     font-size: 2rem;          /* Tamaño potente pero no gigante */
