@@ -498,7 +498,7 @@ body::after {
 
 
 /* 1. El marc taronja que t'indica que ets admin */
-body.admin-mode-active { border: 5px solid orange !important; }
+body.admin-mode-active { border: 5px solid rgb(246, 188, 81) !important; }
 
 /* 2. Mostrar els plats que el Worker envia però que tenen 'Visible: false' */
 .item-ocult { 
