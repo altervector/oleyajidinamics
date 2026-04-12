@@ -21,7 +21,7 @@ const htmlBotiga = `
             <span class="etiqueta-categoria">Bebidas</span>
         </a>
         <a href="https://oleyaji.netlify.app/principal.html?Categoria=Tapas" class="enllac-imatge-fix">
-            <img src="https://altervector.github.io/oleyajidinamics/images/croquetas.webp" alt="Tapas" class="imatge-petita">
+            <img src="https://altervector.github.io/oleyajidinamics/images/PicBloc2.webp" alt="Tapas" class="imatge-petita">
             <span class="etiqueta-categoria">Tapas</span>
         </a>
     </div>
