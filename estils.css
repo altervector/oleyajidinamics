@@ -95,7 +95,7 @@ a {
 
 .separador-hr {
     border: none;
-    border-top: 1px solid blue; /* Color taronja Cadí */
+    border-top: 1px solid #0056b3; /* Color taronja Cadí */
     max-width: 400px;
     width: 90%;
     margin: 5px auto;
