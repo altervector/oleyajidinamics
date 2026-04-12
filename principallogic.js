@@ -380,3 +380,4 @@ window.obrirModalNuevo = function() {
     
     modal.style.display = 'flex';
 };
+document.body.style.opacity = "1";

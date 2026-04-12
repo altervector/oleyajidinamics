@@ -171,3 +171,4 @@ if (MOSTRAR_BLOQUEIG) {
         document.body.appendChild(capaProhibida);
     });
 }
+document.body.style.opacity = "1";
