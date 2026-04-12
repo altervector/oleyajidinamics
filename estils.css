@@ -466,15 +466,15 @@ Si quieres añadir el blanco junto al amarillo para suavizar el contraste, la se
     visibility: visible!important;
     opacity: 1!important;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     /* El toque de diseño */
     font-size: 2rem;          /* Tamaño potente pero no gigante */
-    font-weight: 300;           /* Letra fina, menos "pesada" */
-    color: #333;                /* Un gris muy oscuro, menos agresivo que el azul o negro */
+    font-weight: 350;           /* Letra fina, menos "pesada" */
+    color: #0056b3;                /* Un gris muy oscuro, menos agresivo que el azul o negro */
     letter-spacing: 1px;        /* Separa un poco las letras (toque premium) */
     text-align: center;         /* Centrado suele quedar mejor en galerías */
     width: 100%;                /* Asegura el centrado */
-    border-bottom: 1px solid #333; /* Una línea fina debajo para enmarcar */
+    border-bottom: 1px solid #0056b3; /* Una línea fina debajo para enmarcar */
     display: inline-block;      /* Para que la línea de abajo no ocupe todo el ancho */
     padding-bottom: 5px;        /* Espacio entre el texto y su línea */
 }
