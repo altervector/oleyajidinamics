@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Blau permanent si som admin
             if (sessionStorage.getItem('adminMode') === 'true') {
                 logo.style.filter = "brightness(0) saturate(100%) invert(15%) sepia(98%) saturate(3019%) hue-rotate(202deg)"; 
-        document.documentElement.style.setProperty('background-color', '#6b8e23', 'important');// Fons Verd
+        document.documentElement.style.setProperty('background-color', 'rgb(40, 167, 69)', 'important');// Fons Verd
                 
             }
 

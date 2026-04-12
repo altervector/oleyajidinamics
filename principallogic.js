@@ -111,7 +111,7 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
     if (!contingut || !modal) return;
 
     if (socAdmin) {
-        modal.style.backgroundColor = "rgba(255, 140, 0, 0.5)";
+        modal.style.backgroundColor = "rgba(40, 167, 69, 0.8)";
         contingut.innerHTML = `
             <div style="position:relative;" id="container-foto-admin">
                 <img id="preview-foto" src="${foto}" style="width:100%; height:200px; object-fit:cover; border-radius:10px 10px 0 0;">
