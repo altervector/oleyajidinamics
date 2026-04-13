@@ -209,7 +209,7 @@ window.guardarCanvis = function(idAirtable) {
         "Descripcio": document.getElementById('edit-desc').value.trim(),
         "Preu": parseFloat(document.getElementById('edit-preu').value.replace(',', '.')) || 0, 
         "Visible": document.getElementById('edit-visible').checked,
-        "Categoria": [document.getElementById('edit-categoria').value.trim()]
+        "Categoria": [document.getElementById('edit-categoria').value]
     };
 
     // Si és un plat nou, afegim la foto si se n'ha pujat una
