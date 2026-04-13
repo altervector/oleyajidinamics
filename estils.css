@@ -3,7 +3,7 @@
    ============================================================ */
 /* Añade esto al principio de estils.css */
 html {
-    background-color: #e0c0a1 !important;
+    background-color: #deccba !important;
     box-sizing: border-box; /* Evita que els marges eixamplin les caixes */
     font-family: Arial, sans-serif;
 }
