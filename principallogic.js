@@ -131,7 +131,11 @@ window.obrirModal = function(idAirtable, foto, esVisible, el) {
                 </div>
                 <div style="display:flex; flex-direction:column; gap:5px;">
                     <label style="font-size:12px; color:#666;">Categoria:</label>
-                    <input type="text" id="edit-categoria" value="${categoriaActual}">
+                        <select id="edit-categoria" style="padding:8px; border:1px solid #ddd; border-radius:5px;">
+                            ${["Begudes", "Tapas", "Plats", "Postres"].map(cat => 
+                                `<option value="${cat}" ${cat === categoriaActual ? 'selected' : ''}>${cat}</option>`
+                            ).join('')}
+                        </select>
                 </div>
                 <div style="display:flex; justify-content:space-between; margin-top:10px;">
                     <button onclick="tancarModal()" style="padding:8px 15px; background:#ccc; border:none; border-radius:5px; cursor:pointer;">Cancel·lar</button>
