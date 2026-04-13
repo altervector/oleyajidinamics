@@ -2,6 +2,33 @@
    1. RESET I BASES (El fonament de la casa)
    ============================================================ */
 /* Añade esto al principio de estils.css */
+:root {
+    /* Fondos */
+    --bg-html: #deccba;        /* Fondo arena total */
+    --bg-body: transparent;    /* El cuerpo es transparente para ver el arena */
+    --bg-modaledit: rgba(40, 167, 69, 0.8);       /* Fondo del modal Edicion*/
+    --bg-modalnew: rgba(40, 167, 69, 0.8);       /* Fondo del modal Nuevo*/
+    
+    /* Textos */
+    --text-main: #0056b3;      /* Azul  para nombres y títulos */
+    --text-desc: #666666;      /* Gris para descripciones */
+    --text-preu: #191970;      /* Color del precio */
+    --text-light: #ffffff;     /* Blanco para textos sobre fondos oscuros */
+
+    /* Interactivos (Links y Botones) */
+    --color-hr: #0056b3;       /*Color HR*/
+    --color-link: #0056b3;     /* Color de los enlaces */
+    --color-btn-save: #191970; /* Botón guardar */
+    --color-btn-add: #28a745;  /* Botón flotante de añadir (verde) */
+    --color-accent: #fb9d46;   /* El naranja para detalles pequeños */
+
+/* Textos y Detalles */
+    --color-titols: #191970;    /* Azul medianoche */
+    --color-preu: #191970;      /* Por si quieres que el precio destaque diferente luego */
+    --color-descripcio: #666666; /* El gris de los detalles */
+
+
+}
 html {
     background-color: #deccba !important;
     box-sizing: border-box; /* Evita que els marges eixamplin les caixes */
